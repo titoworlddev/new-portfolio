@@ -54,11 +54,11 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
         </div>
 
         {/* Fixed Image - Responsive */}
-        <div className="relative overflow-hidden flex-shrink-0">
+        <div className="relative overflow-hidden flex-shrink-0 px-4 sm:px-6">
           <img
             src={project.coverImg || project.img}
             alt={project.title}
-            className="w-full h-48 sm:h-56 md:h-64 object-cover"
+            className="w-full h-40 sm:h-48 md:h-64 object-cover object-top position-top rounded-lg sm:rounded-xl"
           />
         </div>
 
