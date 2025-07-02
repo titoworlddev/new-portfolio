@@ -452,7 +452,7 @@ export default function Portfolio() {
 
           <Accordion type="single" collapsible className="space-y-4 sm:space-y-6">
             {coursesAndCertifications.map((course, index) => (
-              <AccordionItem key={index} value={`course-${index}`}>
+              <AccordionItem key={index} className="border-0" value={`course-${index}`}>
                 <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-300 overflow-hidden">
                   <AccordionTrigger className="p-4 sm:p-6 hover:no-underline [&[data-state=open]>div>div:first-child]:text-teal-400 [&>svg]:text-slate-400 hover:[&>svg]:text-teal-400">
                     <div className="flex items-start gap-3 sm:gap-4 w-full">
