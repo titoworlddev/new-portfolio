@@ -35,7 +35,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogOverlay className="bg-black/80 backdrop-blur-sm" />
+      <DialogOverlay className="bg-black/5 backdrop-blur-sm" />
       <DialogContent
         className="w-[92vw] max-w-4xl h-[85vh] max-h-[85vh] p-0 bg-slate-800/95 backdrop-blur-md border-slate-700/50 text-white flex flex-col mx-auto rounded-lg sm:rounded-xl"
         hideCloseButton={true}
