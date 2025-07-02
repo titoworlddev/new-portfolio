@@ -49,7 +49,7 @@
 
 ## 📁 Estructura del Proyecto
 
-\\\
+```
 portfolio-redesign/
 ├── app/                          # App Router de Next.js
 │   ├── actions/                  # Server Actions
@@ -76,7 +76,7 @@ portfolio-redesign/
 │   ├── img/                    # Imágenes
 │   └── documents/              # Documentos (CV)
 └── styles/                     # Estilos adicionales
-\\\
+```
 
 ## 🚀 Instalación y Desarrollo
 
@@ -87,38 +87,38 @@ portfolio-redesign/
 ### Instalación
 
 1. **Clona el repositorio**
-   \\\bash
+   ```bash
    git clone https://github.com/titoworlddev/new-portfolio.git
    cd new-portfolio
-   \\\
+   ```
 
 2. **Instala las dependencias**
-   \\\bash
+   ```bash
    npm install
    # o
    yarn install
    # o
    pnpm install
-   \\\
+   ```
 
 3. **Configura las variables de entorno**
-   \\\bash
+   ```bash
    cp .env.example .env.local
-   \\\
+   ```
    
    Añade tu API key de Resend:
-   \\\env
+   ```env
    RESEND_API=tu_api_key_aqui
-   \\\
+   ```
 
 4. **Ejecuta el servidor de desarrollo**
-   \\\bash
+   ```bash
    npm run dev
    # o
    yarn dev
    # o
    pnpm dev
-   \\\
+   ```
 
 5. **Abre tu navegador**
    
@@ -138,7 +138,7 @@ El formulario de contacto utiliza [Resend](https://resend.com/) para el envío d
 ### Colores y Temas
 Los colores principales se pueden modificar en `tailwind.config.ts`:
 
-\\\typescript
+```typescript
 theme: {
   extend: {
     colors: {
@@ -149,7 +149,7 @@ theme: {
     }
   }
 }
-\\\
+```
 
 ### Contenido
 - **Proyectos**: Edita `lib/projectsData.js`
@@ -179,7 +179,7 @@ theme: {
 
 ## 🔧 Scripts Disponibles
 
-\\\bash
+```bash
 # Desarrollo
 npm run dev
 
@@ -191,7 +191,7 @@ npm run start
 
 # Linting
 npm run lint
-\\\
+```
 
 ## 🚀 Deployment
 
