@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react"
 import { linkTree } from "@/lib/linkTree"
 import { ExternalLink, Briefcase, Github, Linkedin, Instagram, Mail, Play } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function LinkTreePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const router = useRouter()
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,7 +33,13 @@ export default function LinkTreePage() {
 
   const handleLinkClick = (link: any) => {
     if (link.url) {
-      window.location.href = link.url
+      // Si la URL empieza con '/', es una ruta interna
+      if (link.url.startsWith("/")) {
+        router.push(link.url)
+      } else {
+        // Si es una URL externa, cambiamos a esa ruta
+        window.location.href = link.url
+      }
     }
   }
 
@@ -59,11 +67,7 @@ export default function LinkTreePage() {
             <div className="relative w-24 h-24 mx-auto mb-6">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 rounded-full blur-xl animate-pulse" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-teal-400/30 backdrop-blur-sm bg-slate-800/30">
-                <img
-                  src="/img/mis-fotos/mi-foto.webp"
-                  alt="Cristian Arias"
-                  className="w-full h-full object-cover"
-                />
+                <img src="/img/mis-fotos/mi-foto.webp" alt="Cristian Arias" className="w-full h-full object-cover" />
               </div>
             </div>
 

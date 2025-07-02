@@ -45,7 +45,7 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "Formulario de Contacto Portfolio <contacto@titoworld.dev>", // Tu dominio verificado
+      from: "Contacto titoworld.dev <contacto@titoworld.dev>", // Tu dominio verificado
       to: ["cariasmejuto@gmail.com"], // Tu email de destino preferido
       reply_to: email, // Esto permite responder directamente al remitente
       subject: `Nuevo mensaje de contacto de ${name}`,
