@@ -17,7 +17,12 @@ export const metadata: Metadata = {
   title: "Cristian Arias - Desarrollador Frontend",
   description:
     "Portfolio profesional de Cristian Arias, desarrollador frontend especializado en React, Next.js y experiencias web modernas.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
+  icons: {
+    icon: "/img/logo/logo.webp",
+    shortcut: "/img/logo/logo.webp",
+    apple: "/img/logo/logo.webp",
+  },
 }
 
 export default function RootLayout({
