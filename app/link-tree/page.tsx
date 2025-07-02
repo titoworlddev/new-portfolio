@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { linkTree } from "@/lib/linkTree"
 import { ExternalLink, Briefcase, Github, Linkedin, Instagram, Mail, Play } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -8,14 +8,6 @@ import { useRouter } from "next/navigation"
 export default function LinkTreePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const router = useRouter()
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
 
   const getIcon = (name: string) => {
     const lowerName = name.toLowerCase()
@@ -43,15 +35,42 @@ export default function LinkTreePage() {
     }
   }
 
+  // Optimizar el efecto del mouse con throttling
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }, [])
+
+  useEffect(() => {
+    let animationFrame: number
+
+    const throttledMouseMove = (e: MouseEvent) => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+
+      animationFrame = requestAnimationFrame(() => {
+        handleMouseMove(e)
+      })
+    }
+
+    window.addEventListener("mousemove", throttledMouseMove, { passive: true })
+
+    return () => {
+      window.removeEventListener("mousemove", throttledMouseMove)
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+    }
+  }, [handleMouseMove])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 via-teal-800 to-slate-700 text-white overflow-hidden">
-      {/* Animated Background */}
+      {/* Animated Background - Optimizado */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute w-96 h-96 bg-teal-500/10 rounded-full blur-3xl transition-all duration-300 ease-out"
+          className="absolute w-96 h-96 bg-teal-500/10 rounded-full blur-3xl will-change-transform"
           style={{
-            left: mousePosition.x - 192,
-            top: mousePosition.y - 192,
+            transform: `translate3d(${mousePosition.x - 192}px, ${mousePosition.y - 192}px, 0)`,
           }}
         />
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-emerald-500/5 rounded-full blur-2xl animate-pulse" />
