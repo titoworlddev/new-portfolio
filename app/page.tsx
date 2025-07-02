@@ -10,6 +10,8 @@ import { Github, Linkedin, ArrowRight, Download, CheckCircle, Menu, X } from "lu
 import { skills } from "@/lib/skills"
 import { coursesAndCertifications } from "@/lib/coursesAndCertifications"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { sendContactEmail } from "@/app/actions/contact"
+import { useActionState } from "react"
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -18,6 +20,7 @@ export default function Portfolio() {
   const [projectsData, setProjectsData] = useState<any>({})
   const [isLoading, setIsLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [state, formAction, isPending] = useActionState(sendContactEmail, null)
 
   const handleDownloadCV = async () => {
     try {
@@ -532,18 +535,21 @@ export default function Portfolio() {
               CONTÁCTAME
             </h2>
             <p className="text-lg sm:text-xl text-slate-400 mb-2">Envíame un mensaje si deseas trabajar conmigo.</p>
-            <p className="text-slate-500">- Usa el formulario o carlosmejuto@gmail.com -</p>
+            <p className="text-slate-500">- Usa el formulario o cariasmejuto@gmail.com -</p>
           </div>
 
           <div>
             <Card className="p-6 sm:p-8 bg-slate-800/30 backdrop-blur-sm border-slate-700/50">
-              <form className="space-y-6">
+              <form action={formAction} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-slate-300">
                       Nombre <span className="text-red-400">*</span>
                     </label>
                     <Input
+                      name="name"
+                      required
+                      disabled={isPending}
                       className="bg-slate-700/50 border-slate-600/50 focus:border-teal-400/50 text-white placeholder:text-slate-400"
                       placeholder="Tu nombre"
                     />
@@ -553,7 +559,10 @@ export default function Portfolio() {
                       Email <span className="text-red-400">*</span>
                     </label>
                     <Input
+                      name="email"
                       type="email"
+                      required
+                      disabled={isPending}
                       className="bg-slate-700/50 border-slate-600/50 focus:border-teal-400/50 text-white placeholder:text-slate-400"
                       placeholder="Tu email"
                     />
@@ -564,18 +573,34 @@ export default function Portfolio() {
                     Mensaje <span className="text-red-400">*</span>
                   </label>
                   <Textarea
+                    name="message"
                     rows={6}
+                    required
+                    disabled={isPending}
                     className="bg-slate-700/50 border-slate-600/50 focus:border-teal-400/50 text-white placeholder:text-slate-400 resize-none"
                     placeholder="Tu mensaje"
                   />
                 </div>
+
+                {/* Mostrar mensajes de estado */}
+                {state && (
+                  <div
+                    className={`p-4 rounded-lg ${state.success ? "bg-green-500/20 border border-green-500/50" : "bg-red-500/20 border border-red-500/50"}`}
+                  >
+                    <p className={`text-sm ${state.success ? "text-green-400" : "text-red-400"}`}>
+                      {state.success ? state.message : state.error}
+                    </p>
+                  </div>
+                )}
+
                 <div className="text-center">
                   <Button
                     type="submit"
                     size="lg"
-                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 px-8 sm:px-12 w-full sm:w-auto"
+                    disabled={isPending}
+                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 px-8 sm:px-12 w-full sm:w-auto disabled:opacity-50"
                   >
-                    Enviar
+                    {isPending ? "Enviando..." : "Enviar"}
                   </Button>
                 </div>
               </form>

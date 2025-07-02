@@ -9,11 +9,6 @@ export const metadata: Metadata = {
     description: "Enlaces principales de Cristian Arias - Desarrollador FullStack",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mis Links - Cristian Arias",
-    description: "Enlaces principales de Cristian Arias - Desarrollador FullStack",
-  },
 }
 
 export default function LinkTreeLayout({

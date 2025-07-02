@@ -60,7 +60,7 @@ export default function LinkTreePage() {
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 rounded-full blur-xl animate-pulse" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-teal-400/30 backdrop-blur-sm bg-slate-800/30">
                 <img
-                  src="https://avatars.githubusercontent.com/u/70041483?v=4"
+                  src="/img/mis-fotos/mi-foto.webp"
                   alt="Cristian Arias"
                   className="w-full h-full object-cover"
                 />
