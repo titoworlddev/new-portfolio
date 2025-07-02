@@ -1,15 +1,9 @@
 "use client"
 
-import type { Metadata } from "next"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Home, ArrowLeft, Search, Zap } from "lucide-react"
 import Link from "next/link"
-
-export const metadata: Metadata = {
-  title: "404 - Página no encontrada | Cristian Arias",
-  description: "La página que buscas no existe.",
-}
 
 export default function NotFoundPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
