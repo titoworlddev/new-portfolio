@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { ProjectModal } from "@/components/project-modal"
 import { Github, Linkedin, ArrowRight, Download, CheckCircle, Play, Menu, X } from "lucide-react"
+import {skills} from "@/lib/skills"
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -248,7 +249,7 @@ export default function Portfolio() {
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 rounded-full blur-2xl animate-pulse" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-teal-400/30 backdrop-blur-sm bg-slate-800/30">
-                <img src="/hero-image.png" alt="Cristian Arias" className="w-full h-full object-cover" />
+                <img src="https://avatars.githubusercontent.com/u/70041483?v=4" alt="Cristian Arias" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -384,30 +385,13 @@ export default function Portfolio() {
                 Web
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {[
-                  "HTML5",
-                  "CSS3",
-                  "JavaScript",
-                  "TypeScript",
-                  "React",
-                  "Vue.js",
-                  "Astro",
-                  "Tailwind",
-                  "Bootstrap",
-                  "Sass",
-                  "Node.js",
-                  "Express",
-                  "Firebase",
-                  "MongoDB",
-                  "Redux",
-                  "Vite",
-                ].map((skill, index) => (
+                {skills.web.skills.map(({title, img}, index) => (
                   <div
-                    key={skill}
+                    key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">🌐</div>
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{skill}</span>
+                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
               </div>
@@ -419,13 +403,13 @@ export default function Portfolio() {
                 Móvil
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {["Dart", "Flutter"].map((skill, index) => (
+                {skills.mobile.skills.map(({title, img}, index) => (
                   <div
-                    key={skill}
+                    key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">📱</div>
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{skill}</span>
+                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
               </div>
@@ -437,13 +421,13 @@ export default function Portfolio() {
                 Utilidades
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {["Git", "GitHub"].map((skill, index) => (
+                {skills.utilities.skills.map(({title, img}, index) => (
                   <div
-                    key={skill}
+                    key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">🔧</div>
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{skill}</span>
+                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
               </div>
@@ -455,13 +439,14 @@ export default function Portfolio() {
                 Diseño
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {["Figma", "Adobe XD"].map((skill, index) => (
+                {skills.design.skills.map(({title, img}, index) => (
                   <div
-                    key={skill}
+                    key={title}
+                    title={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{skill}</span>
+                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
               </div>
