@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { ProjectModal } from "@/components/project-modal"
-import { Github, Linkedin, ArrowRight, Download, CheckCircle, Play, Menu, X } from "lucide-react"
+import { Github, Linkedin, ArrowRight, Download, CheckCircle, Menu, X } from "lucide-react"
 import { skills } from "@/lib/skills"
-import { coursesAndCertifications } from '@/lib/coursesAndCertifications'
+import { coursesAndCertifications } from "@/lib/coursesAndCertifications"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -449,22 +450,31 @@ export default function Portfolio() {
             </h2>
           </div>
 
-          <div className="space-y-4 sm:space-y-6">
+          <Accordion type="single" collapsible className="space-y-4 sm:space-y-6">
             {coursesAndCertifications.map((course, index) => (
-              <div key={index}>
-                <Card className="p-4 sm:p-6 bg-slate-800/30 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-300">
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="flex-shrink-0 mt-1">
-                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
+              <AccordionItem key={index} value={`course-${index}`}>
+                <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-300 overflow-hidden">
+                  <AccordionTrigger className="p-4 sm:p-6 hover:no-underline [&[data-state=open]>div>div:first-child]:text-teal-400 [&>svg]:text-slate-400 hover:[&>svg]:text-teal-400">
+                    <div className="flex items-start gap-3 sm:gap-4 w-full">
+                      <div className="flex-shrink-0 mt-1">
+                        <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
+                      </div>
+                      <div className="flex-1 min-w-0 text-left">
+                        <h3 className="text-lg sm:text-xl font-bold text-white mb-2 transition-colors duration-300">
+                          {course.title}
+                        </h3>
+                        <p className="text-teal-400 font-medium">
+                          {course.school} - {course.year}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{course.title}</h3>
-                      <p className="text-teal-400 font-medium mb-3 sm:mb-4">{course.platform}</p>
-
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 sm:px-6 pb-4 sm:pb-6">
+                    <div className="pl-8 sm:pl-10 space-y-4">
                       {course.description && (
-                        <div className="mb-3 sm:mb-4">
-                          <h4 className="text-sm font-semibold text-slate-300 mb-2">Temas principales del curso:</h4>
-                          <p className="text-slate-400 text-sm leading-relaxed mb-3 sm:mb-4">{course.description}</p>
+                        <div>
+                          <h4 className="text-sm font-semibold text-slate-300 mb-2">Descripción del curso:</h4>
+                          <p className="text-slate-400 text-sm leading-relaxed">{course.description}</p>
                         </div>
                       )}
 
@@ -476,9 +486,10 @@ export default function Portfolio() {
                       )}
 
                       {course.certificateUrl && (
-                        <div className="mt-4">
+                        <div className="pt-2">
                           <Button
                             size="sm"
+                            onClick={() => window.open(course.certificateUrl, "_blank", "noopener,noreferrer")}
                             className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
                           >
                             Ver certificado
@@ -486,11 +497,11 @@ export default function Portfolio() {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </AccordionContent>
                 </Card>
-              </div>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
 
