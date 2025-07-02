@@ -475,14 +475,16 @@ export default function Portfolio() {
                         </div>
                       )}
 
-                      <div className="mt-4">
-                        <Button
-                          size="sm"
-                          className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
-                        >
-                          Ver certificado
-                        </Button>
+                      {course.certificateUrl && (
+                        <div className="mt-4">
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
+                          >
+                            Ver certificado
+                          </Button>
                         </div>
+                      )}
                     </div>
                   </div>
                 </Card>
