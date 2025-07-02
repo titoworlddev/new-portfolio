@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card"
 import { ProjectModal } from "@/components/project-modal"
 import { Github, Linkedin, ArrowRight, Download, CheckCircle, Play, Menu, X } from "lucide-react"
 import { skills } from "@/lib/skills"
+import { coursesAndCertifications } from '@/lib/coursesAndCertifications'
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -50,43 +51,6 @@ export default function Portfolio() {
     }
     setIsMobileMenuOpen(false)
   }
-
-  const courses = [
-    {
-      title: "React: De cero a experto ( Hooks y MERN ) - 54 horas",
-      platform: "Udemy - 2024",
-      description:
-        "Este curso cuenta con más de 400 lecciones y más de 40 horas de vídeo haciendo aplicaciones y pruebas distintas que ayuda a alcanzar el objetivo de dominar React y otras tecnologías que lo rodean, hay muchas tareas y ejercicios que ayudan a asimilar los conocimientos necesarios para ser un FullStack Developer utilizando React y Node en el Backend junto con Mongo y Firestore como bases de datos.",
-      technologies:
-        "React a profundidad, Hooks y Hooks personalizados, Functional Components, HOC - higher-order components, Context API, Redux, MERN - Mongo + Express + React + Node, Router, Diseños diferentes en diferentes rutas, Bootstrap, Mongoose, JWT y su re-validación, Encriptación de contraseñas, Google Sign-in, Autenticación personalizada, Unit Test, Pruebas especializadas en cada aplicación terminada, Despliegues a producción, Enzyme, Jest, React Testing Library, Mocks, Animaciones en componentes, History, QueryStrings, Heroku y Heroku Logs, Git y Github, Redux DevTools, React DevTools",
-      completed: true,
-    },
-    {
-      title: "Introducción a Frameworks de Frontend con Vue 3 - 8 horas",
-      platform: "Mastermind - 2023",
-      completed: true,
-    },
-    {
-      title: "Diseño web profesional el curso completo práctico y desde 0 - 42 horas",
-      platform: "Udemy - 2022 a 2023",
-      completed: true,
-    },
-    {
-      title: "Flutter intermedio: Diseños profesionales y animaciones - 15.5 horas",
-      platform: "Udemy - 2021",
-      completed: true,
-    },
-    {
-      title: "Flutter: Tu guía completa para ios y android - 37.5 horas",
-      platform: "Udemy - 2020",
-      completed: true,
-    },
-    {
-      title: "Dart: De cero hasta los detalles - 10 horas",
-      platform: "Udemy - 2020",
-      completed: true,
-    },
-  ]
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -159,7 +123,7 @@ export default function Portfolio() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/cristian-arias"
+              href="https://linkedin.com/in/cristian-arias-mejuto"
               target="_blank"
               className="text-slate-400 hover:text-white hover:scale-110 transition-all"
               rel="noreferrer"
@@ -486,16 +450,12 @@ export default function Portfolio() {
           </div>
 
           <div className="space-y-4 sm:space-y-6">
-            {courses.map((course, index) => (
+            {coursesAndCertifications.map((course, index) => (
               <div key={index}>
                 <Card className="p-4 sm:p-6 bg-slate-800/30 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-300">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="flex-shrink-0 mt-1">
-                      {course.completed ? (
-                        <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
-                      ) : (
-                        <Play className="h-5 w-5 sm:h-6 sm:w-6 text-teal-400" />
-                      )}
+                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{course.title}</h3>
@@ -508,23 +468,21 @@ export default function Portfolio() {
                         </div>
                       )}
 
-                      {course.technologies && (
+                      {course.skills && (
                         <div>
                           <h4 className="text-sm font-semibold text-slate-300 mb-2">Tecnologías y herramientas:</h4>
-                          <p className="text-slate-400 text-sm leading-relaxed">{course.technologies}</p>
+                          <p className="text-slate-400 text-sm leading-relaxed">{course.skills}</p>
                         </div>
                       )}
 
-                      {index === 0 && (
-                        <div className="mt-4">
-                          <Button
-                            size="sm"
-                            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
-                          >
-                            Ver certificado
-                          </Button>
+                      <div className="mt-4">
+                        <Button
+                          size="sm"
+                          className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
+                        >
+                          Ver certificado
+                        </Button>
                         </div>
-                      )}
                     </div>
                   </div>
                 </Card>
@@ -608,7 +566,7 @@ export default function Portfolio() {
               </div>
             </a>
             <a
-              href="https://linkedin.com/in/cristian-arias"
+              href="https://linkedin.com/in/cristian-arias-mejuto"
               target="_blank"
               className="text-slate-400 hover:text-teal-400 transition-colors"
               rel="noreferrer"
