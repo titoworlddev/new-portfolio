@@ -37,7 +37,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogOverlay className="bg-black/80 backdrop-blur-sm" />
       <DialogContent
-        className="w-[95vw] max-w-4xl h-[95vh] max-h-[95vh] p-0 bg-slate-800/95 backdrop-blur-md border-slate-700/50 text-white flex flex-col m-4 sm:m-6"
+        className="w-[92vw] max-w-4xl h-[85vh] max-h-[85vh] p-0 bg-slate-800/95 backdrop-blur-md border-slate-700/50 text-white flex flex-col mx-auto rounded-lg sm:rounded-xl"
         hideCloseButton={true}
       >
         {/* Fixed Header - Mobile First */}
@@ -88,20 +88,32 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
           <div className="p-4 sm:p-6 border-t border-slate-700/50 flex-shrink-0">
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               {project.links.map((link: any, index: number) => (
-                <Button
+                <a
                   key={index}
-                  asChild
-                  className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 w-full sm:w-auto text-sm sm:text-base"
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 w-full sm:w-auto"
+                  style={{
+                    background: "linear-gradient(to right, rgb(20, 184, 166), rgb(16, 185, 129))",
+                    color: "white",
+                    border: "none",
+                    transition: "all 0.2s ease-in-out",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "linear-gradient(to right, rgb(13, 148, 136), rgb(5, 150, 105))"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "linear-gradient(to right, rgb(20, 184, 166), rgb(16, 185, 129))"
+                  }}
                 >
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    {link.url?.includes("github") ? (
-                      <Github className="mr-2 h-4 w-4" />
-                    ) : (
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                    )}
-                    {link.url?.includes("github") ? "Ver Código" : "Ver Proyecto"}
-                  </a>
-                </Button>
+                  {link.url?.includes("github") ? (
+                    <Github className="mr-2 h-4 w-4" />
+                  ) : (
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                  )}
+                  {link.url?.includes("github") ? "Ver Código" : "Ver Proyecto"}
+                </a>
               ))}
             </div>
           </div>
