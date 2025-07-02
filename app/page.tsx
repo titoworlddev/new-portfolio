@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { ProjectModal } from "@/components/project-modal"
 import { Github, Linkedin, ArrowRight, Download, CheckCircle, Play, Menu, X } from "lucide-react"
-import {skills} from "@/lib/skills"
+import { skills } from "@/lib/skills"
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -218,12 +218,12 @@ export default function Portfolio() {
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-teal-200 to-emerald-400 bg-clip-text text-transparent">
               Desarrollador
               <br />
-              <span className="text-teal-400">Frontend</span>
+              <span className="text-teal-400">FullStack</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Apasionado desarrollador frontend con +3 años de experiencia en el desarrollo web y móvil. Busco
-              oportunidades para aplicar y ampliar mis conocimientos, aportando entusiasmo y un enfoque centrado en la
-              usabilidad y el diseño.
+              Desarrollador FullStack con más de 3 años de experiencia creando soluciones web y móviles robustas.
+              Especializado en React, Vue.js y Flutter, con un enfoque sólido en la experiencia de usuario y
+              arquitecturas escalables.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button
@@ -249,7 +249,11 @@ export default function Portfolio() {
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 rounded-full blur-2xl animate-pulse" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-teal-400/30 backdrop-blur-sm bg-slate-800/30">
-                <img src="https://avatars.githubusercontent.com/u/70041483?v=4" alt="Cristian Arias" className="w-full h-full object-cover" />
+                <img
+                  src="https://avatars.githubusercontent.com/u/70041483?v=4"
+                  alt="Cristian Arias"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -341,19 +345,20 @@ export default function Portfolio() {
             </h2>
             <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-300 leading-relaxed">
               <p>
-                Actualmente me especializo en Frontend de Web y Móvil, pero estoy aprendiendo sobre el backend porque me
-                gustaría llegar a ser un desarrollador fullstack.
+                Me especializo en desarrollo FullStack para Web y Móvil, con una sólida base en tecnologías modernas y
+                metodologías ágiles. Mi experiencia abarca desde aplicaciones web complejas hasta soluciones móviles
+                multiplataforma.
               </p>
               <p>
-                Con muchas ganas de trabajar, ya que me encanta lo que hago, la programación y el diseño, por lo que me
-                apasiona crear aplicaciones funcionales, bonitas e intuitivas.
+                He trabajado en proyectos diversos que me han permitido perfeccionar mis habilidades en React, Vue.js y
+                Flutter, siempre enfocándome en crear experiencias de usuario excepcionales y código mantenible.
               </p>
               <p>
-                En conclusión me gusta mucho el mundo de la tecnología y también soy muy curioso, lo cual me lleva a
-                estar aprendiendo cosas nuevas constantemente.
+                Mi pasión por la tecnología me impulsa a mantenerme actualizado con las últimas tendencias del sector,
+                lo que me permite aportar soluciones innovadoras y eficientes en cada proyecto.
               </p>
               <p className="text-lg sm:text-xl font-semibold text-teal-400">
-                Si quieres saber más sobre mí, te invito a descargar mi CV.
+                Si quieres conocer más detalles sobre mi trayectoria profesional, puedes descargar mi CV.
               </p>
             </div>
             <div className="mt-6 sm:mt-8">
@@ -385,12 +390,16 @@ export default function Portfolio() {
                 Web
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {skills.web.skills.map(({title, img}, index) => (
+                {skills.web.skills.map(({ title, img }, index) => (
                   <div
                     key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`}
+                      alt={`${title} logo`}
+                      className="size-11 mb-2 group-hover:scale-110 transition-transform"
+                    />
                     <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
@@ -403,12 +412,16 @@ export default function Portfolio() {
                 Móvil
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {skills.mobile.skills.map(({title, img}, index) => (
+                {skills.mobile.skills.map(({ title, img }, index) => (
                   <div
                     key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`}
+                      alt={`${title} logo`}
+                      className="size-11 mb-2 group-hover:scale-110 transition-transform"
+                    />
                     <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
@@ -421,12 +434,16 @@ export default function Portfolio() {
                 Utilidades
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {skills.utilities.skills.map(({title, img}, index) => (
+                {skills.utilities.skills.map(({ title, img }, index) => (
                   <div
                     key={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`}
+                      alt={`${title} logo`}
+                      className="size-11 mb-2 group-hover:scale-110 transition-transform"
+                    />
                     <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
@@ -439,13 +456,17 @@ export default function Portfolio() {
                 Diseño
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
-                {skills.design.skills.map(({title, img}, index) => (
+                {skills.design.skills.map(({ title, img }, index) => (
                   <div
                     key={title}
                     title={title}
                     className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
                   >
-                    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`} alt={`${title} logo`} className="size-11 mb-2 group-hover:scale-110 transition-transform"/>
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`}
+                      alt={`${title} logo`}
+                      className="size-11 mb-2 group-hover:scale-110 transition-transform"
+                    />
                     <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
                   </div>
                 ))}
