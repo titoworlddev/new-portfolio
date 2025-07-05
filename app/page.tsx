@@ -353,7 +353,6 @@ export default function Portfolio() {
           </>
         </div>
       </section>
-      {/* Comentario de prueba */}
 
       {/* About Section - Mobile First */}
       <section
