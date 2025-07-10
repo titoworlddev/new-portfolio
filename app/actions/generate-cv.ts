@@ -7,30 +7,38 @@ interface CVData {
     name: string
     title: string
     email: string
+    phone?: string
+    location?: string
     portfolio: string
     github: string
     linkedin: string
   }
   summary: string
   skills: {
-    languages: string[]
-    frameworks: string[]
-    backend: string[]
-    tools: string[]
+    web?: string[]
+    mobile?: string[]
+    utilities?: string[]
+    design?: string[]
   }
   projects: Array<{
     title: string
     description: string
+    technologies?: string[]
+    category?: string
+    links?: string[]
   }>
   education: Array<{
     title: string
+    institution?: string
     period: string
     description: string[]
   }>
   certifications: Array<{
     title: string
-    school: string
+    institution: string
     year: string
+    description?: string
+    skills?: string
   }>
 }
 
@@ -79,6 +87,17 @@ export async function generateCV(cvData: CVData) {
     pdf.setFont("helvetica", "normal")
     pdf.text(`• Correo electrónico: ${cvData.personalInfo.email}`, 20, yPosition)
     yPosition += 5
+
+    if (cvData.personalInfo.phone) {
+      pdf.text(`• Teléfono: ${cvData.personalInfo.phone}`, 20, yPosition)
+      yPosition += 5
+    }
+
+    if (cvData.personalInfo.location) {
+      pdf.text(`• Ubicación: ${cvData.personalInfo.location}`, 20, yPosition)
+      yPosition += 5
+    }
+
     pdf.text(`• Portfolio: ${cvData.personalInfo.portfolio}`, 20, yPosition)
     yPosition += 5
     pdf.text(`• GitHub: ${cvData.personalInfo.github}`, 20, yPosition)
@@ -109,24 +128,24 @@ export async function generateCV(cvData: CVData) {
     pdf.setFontSize(10)
     pdf.setFont("helvetica", "normal")
 
-    // Solo mostrar categorías que tengan habilidades
-    if (cvData.skills.languages.length > 0) {
-      pdf.text(`• Lenguajes de Programación: ${cvData.skills.languages.join(", ")}`, 20, yPosition)
+    // Only show skill categories that have skills
+    if (cvData.skills.web && cvData.skills.web.length > 0) {
+      pdf.text(`• Desarrollo Web: ${cvData.skills.web.join(", ")}`, 20, yPosition)
       yPosition += 5
     }
 
-    if (cvData.skills.frameworks.length > 0) {
-      pdf.text(`• Frameworks y Bibliotecas: ${cvData.skills.frameworks.join(", ")}`, 20, yPosition)
+    if (cvData.skills.mobile && cvData.skills.mobile.length > 0) {
+      pdf.text(`• Desarrollo Móvil: ${cvData.skills.mobile.join(", ")}`, 20, yPosition)
       yPosition += 5
     }
 
-    if (cvData.skills.backend.length > 0) {
-      pdf.text(`• Backend y Bases de Datos: ${cvData.skills.backend.join(", ")}`, 20, yPosition)
+    if (cvData.skills.utilities && cvData.skills.utilities.length > 0) {
+      pdf.text(`• Herramientas: ${cvData.skills.utilities.join(", ")}`, 20, yPosition)
       yPosition += 5
     }
 
-    if (cvData.skills.tools.length > 0) {
-      pdf.text(`• Herramientas de Desarrollo y Diseño: ${cvData.skills.tools.join(", ")}`, 20, yPosition)
+    if (cvData.skills.design && cvData.skills.design.length > 0) {
+      pdf.text(`• Diseño: ${cvData.skills.design.join(", ")}`, 20, yPosition)
       yPosition += 5
     }
 
@@ -135,69 +154,81 @@ export async function generateCV(cvData: CVData) {
     yPosition += 15
 
     // Featured Projects
-    checkNewPage(30)
-    pdf.setFontSize(12)
-    pdf.setFont("helvetica", "bold")
-    pdf.text("PROYECTOS DESTACADOS", 20, yPosition)
-
-    yPosition += 8
-    pdf.setFontSize(10)
-    pdf.setFont("helvetica", "normal")
-
-    cvData.projects.forEach((project, index) => {
-      checkNewPage(25)
-
+    if (cvData.projects && cvData.projects.length > 0) {
+      checkNewPage(30)
+      pdf.setFontSize(12)
       pdf.setFont("helvetica", "bold")
-      pdf.text(`• ${project.title}:`, 20, yPosition)
-      yPosition += 5
+      pdf.text("PROYECTOS DESTACADOS", 20, yPosition)
+
+      yPosition += 8
+      pdf.setFontSize(10)
       pdf.setFont("helvetica", "normal")
-      yPosition = addWrappedText(project.description, 22, yPosition, 168, 10)
-      yPosition += 5
-    })
 
-    yPosition += 10
+      cvData.projects.forEach((project, index) => {
+        checkNewPage(25)
 
-    // Education
-    checkNewPage(40)
-    pdf.setFontSize(12)
-    pdf.setFont("helvetica", "bold")
-    pdf.text("EDUCACIÓN", 20, yPosition)
-
-    yPosition += 8
-    pdf.setFontSize(10)
-
-    cvData.education.forEach((edu) => {
-      checkNewPage(20)
-
-      pdf.setFont("helvetica", "bold")
-      pdf.text(edu.title, 20, yPosition)
-      yPosition += 5
-      pdf.setFont("helvetica", "normal")
-      pdf.text(edu.period, 20, yPosition)
-      yPosition += 5
-
-      edu.description.forEach((desc) => {
-        pdf.text(`• ${desc}`, 20, yPosition)
+        pdf.setFont("helvetica", "bold")
+        pdf.text(`• ${project.title}:`, 20, yPosition)
+        yPosition += 5
+        pdf.setFont("helvetica", "normal")
+        yPosition = addWrappedText(project.description, 22, yPosition, 168, 10)
         yPosition += 5
       })
-      yPosition += 5
-    })
+
+      yPosition += 10
+    }
+
+    // Education
+    if (cvData.education && cvData.education.length > 0) {
+      checkNewPage(40)
+      pdf.setFontSize(12)
+      pdf.setFont("helvetica", "bold")
+      pdf.text("EDUCACIÓN", 20, yPosition)
+
+      yPosition += 8
+      pdf.setFontSize(10)
+
+      cvData.education.forEach((edu) => {
+        checkNewPage(20)
+
+        pdf.setFont("helvetica", "bold")
+        pdf.text(edu.title, 20, yPosition)
+        yPosition += 5
+        pdf.setFont("helvetica", "normal")
+        if (edu.institution) {
+          pdf.text(`${edu.institution} - ${edu.period}`, 20, yPosition)
+        } else {
+          pdf.text(edu.period, 20, yPosition)
+        }
+        yPosition += 5
+
+        if (edu.description && edu.description.length > 0) {
+          edu.description.forEach((desc) => {
+            pdf.text(`• ${desc}`, 20, yPosition)
+            yPosition += 5
+          })
+        }
+        yPosition += 5
+      })
+    }
 
     // Certifications
-    checkNewPage(30)
-    pdf.setFontSize(12)
-    pdf.setFont("helvetica", "bold")
-    pdf.text("CERTIFICACIONES Y CURSOS RELEVANTES", 20, yPosition)
+    if (cvData.certifications && cvData.certifications.length > 0) {
+      checkNewPage(30)
+      pdf.setFontSize(12)
+      pdf.setFont("helvetica", "bold")
+      pdf.text("CERTIFICACIONES Y CURSOS RELEVANTES", 20, yPosition)
 
-    yPosition += 8
-    pdf.setFontSize(10)
-    pdf.setFont("helvetica", "normal")
+      yPosition += 8
+      pdf.setFontSize(10)
+      pdf.setFont("helvetica", "normal")
 
-    cvData.certifications.forEach((cert) => {
-      checkNewPage(8)
-      pdf.text(`• ${cert.title} - ${cert.school} - ${cert.year}`, 20, yPosition)
-      yPosition += 5
-    })
+      cvData.certifications.forEach((cert) => {
+        checkNewPage(8)
+        pdf.text(`• ${cert.title} - ${cert.institution} - ${cert.year}`, 20, yPosition)
+        yPosition += 5
+      })
+    }
 
     // Generate PDF as base64
     const pdfBase64 = pdf.output("datauristring")
