@@ -15,6 +15,7 @@ import { generateCV } from "@/app/actions/generate-cv"
 import { prepareCVData } from "@/lib/cv-data"
 import { useActionState } from "react"
 import { projectsData } from "@/lib/projectsData"
+import { personalData } from "@/lib/personal-data"
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -234,9 +235,7 @@ export default function Portfolio() {
               <span className="text-teal-400">FullStack</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Desarrollador FullStack con más de 3 años de experiencia creando soluciones web y móviles robustas.
-              Especializado en React, Vue.js y Flutter, con un enfoque sólido en la experiencia de usuario y
-              arquitecturas escalables.
+              {personalData.heroDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button
@@ -352,19 +351,7 @@ export default function Portfolio() {
               SOBRE MÍ
             </h2>
             <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-300 leading-relaxed">
-              <p>
-                Me especializo en desarrollo FullStack para Web y Móvil, con una sólida base en tecnologías modernas y
-                metodologías ágiles. Mi experiencia abarca desde aplicaciones web complejas hasta soluciones móviles
-                multiplataforma.
-              </p>
-              <p>
-                He trabajado en proyectos diversos que me han permitido perfeccionar mis habilidades en React, Vue.js y
-                Flutter, siempre enfocándome en crear experiencias de usuario excepcionales y código mantenible.
-              </p>
-              <p>
-                Mi pasión por la tecnología me impulsa a mantenerme actualizado con las últimas tendencias del sector,
-                lo que me permite aportar soluciones innovadoras y eficientes en cada proyecto.
-              </p>
+              <p>{personalData.summary}</p>
               <p className="text-lg sm:text-xl font-semibold text-teal-400">
                 Si quieres conocer más detalles sobre mi trayectoria profesional, puedes descargar mi CV.
               </p>

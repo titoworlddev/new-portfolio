@@ -47,6 +47,16 @@ export async function generateCV(cvData: CVData) {
       return y + lines.length * (fontSize * 0.4)
     }
 
+    // Helper function to check if we need a new page
+    const checkNewPage = (requiredSpace: number) => {
+      if (yPosition + requiredSpace > 280) {
+        pdf.addPage()
+        yPosition = 20
+        return true
+      }
+      return false
+    }
+
     // Header
     pdf.setFontSize(20)
     pdf.setFont("helvetica", "bold")
@@ -78,6 +88,7 @@ export async function generateCV(cvData: CVData) {
     yPosition += 15
 
     // Professional Summary
+    checkNewPage(30)
     pdf.setFontSize(12)
     pdf.setFont("helvetica", "bold")
     pdf.text("RESUMEN PROFESIONAL", 20, yPosition)
@@ -89,6 +100,7 @@ export async function generateCV(cvData: CVData) {
     yPosition += 10
 
     // Technical Skills
+    checkNewPage(40)
     pdf.setFontSize(12)
     pdf.setFont("helvetica", "bold")
     pdf.text("HABILIDADES TÉCNICAS", 20, yPosition)
@@ -97,19 +109,33 @@ export async function generateCV(cvData: CVData) {
     pdf.setFontSize(10)
     pdf.setFont("helvetica", "normal")
 
-    pdf.text(`• Lenguajes de Programación: ${cvData.skills.languages.join(", ")}`, 20, yPosition)
-    yPosition += 5
-    pdf.text(`• Frameworks y Bibliotecas: ${cvData.skills.frameworks.join(", ")}`, 20, yPosition)
-    yPosition += 5
-    pdf.text(`• Backend y Bases de Datos: ${cvData.skills.backend.join(", ")}`, 20, yPosition)
-    yPosition += 5
-    pdf.text(`• Herramientas de Desarrollo y Diseño: ${cvData.skills.tools.join(", ")}`, 20, yPosition)
-    yPosition += 5
+    // Solo mostrar categorías que tengan habilidades
+    if (cvData.skills.languages.length > 0) {
+      pdf.text(`• Lenguajes de Programación: ${cvData.skills.languages.join(", ")}`, 20, yPosition)
+      yPosition += 5
+    }
+
+    if (cvData.skills.frameworks.length > 0) {
+      pdf.text(`• Frameworks y Bibliotecas: ${cvData.skills.frameworks.join(", ")}`, 20, yPosition)
+      yPosition += 5
+    }
+
+    if (cvData.skills.backend.length > 0) {
+      pdf.text(`• Backend y Bases de Datos: ${cvData.skills.backend.join(", ")}`, 20, yPosition)
+      yPosition += 5
+    }
+
+    if (cvData.skills.tools.length > 0) {
+      pdf.text(`• Herramientas de Desarrollo y Diseño: ${cvData.skills.tools.join(", ")}`, 20, yPosition)
+      yPosition += 5
+    }
+
     pdf.text("• Idiomas: Español (Nativo), Inglés (Básico), Valenciano (Alto), Catalán (Alto)", 20, yPosition)
 
     yPosition += 15
 
     // Featured Projects
+    checkNewPage(30)
     pdf.setFontSize(12)
     pdf.setFont("helvetica", "bold")
     pdf.text("PROYECTOS DESTACADOS", 20, yPosition)
@@ -118,11 +144,8 @@ export async function generateCV(cvData: CVData) {
     pdf.setFontSize(10)
     pdf.setFont("helvetica", "normal")
 
-    cvData.projects.forEach((project) => {
-      if (yPosition > 250) {
-        pdf.addPage()
-        yPosition = 20
-      }
+    cvData.projects.forEach((project, index) => {
+      checkNewPage(25)
 
       pdf.setFont("helvetica", "bold")
       pdf.text(`• ${project.title}:`, 20, yPosition)
@@ -135,11 +158,7 @@ export async function generateCV(cvData: CVData) {
     yPosition += 10
 
     // Education
-    if (yPosition > 220) {
-      pdf.addPage()
-      yPosition = 20
-    }
-
+    checkNewPage(40)
     pdf.setFontSize(12)
     pdf.setFont("helvetica", "bold")
     pdf.text("EDUCACIÓN", 20, yPosition)
@@ -148,6 +167,8 @@ export async function generateCV(cvData: CVData) {
     pdf.setFontSize(10)
 
     cvData.education.forEach((edu) => {
+      checkNewPage(20)
+
       pdf.setFont("helvetica", "bold")
       pdf.text(edu.title, 20, yPosition)
       yPosition += 5
@@ -163,11 +184,7 @@ export async function generateCV(cvData: CVData) {
     })
 
     // Certifications
-    if (yPosition > 200) {
-      pdf.addPage()
-      yPosition = 20
-    }
-
+    checkNewPage(30)
     pdf.setFontSize(12)
     pdf.setFont("helvetica", "bold")
     pdf.text("CERTIFICACIONES Y CURSOS RELEVANTES", 20, yPosition)
@@ -177,6 +194,7 @@ export async function generateCV(cvData: CVData) {
     pdf.setFont("helvetica", "normal")
 
     cvData.certifications.forEach((cert) => {
+      checkNewPage(8)
       pdf.text(`• ${cert.title} - ${cert.school} - ${cert.year}`, 20, yPosition)
       yPosition += 5
     })

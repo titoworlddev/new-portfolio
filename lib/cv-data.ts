@@ -1,70 +1,196 @@
+import { skills } from "./skills"
 import { coursesAndCertifications } from "./coursesAndCertifications"
+import { projectsData } from "./projectsData"
+import { personalData } from "./personal-data"
 
+// Función para generar descripciones mejoradas automáticamente
+function enhanceProjectDescription(project: any): string {
+  const baseDescription = project.text || ""
+
+  // Palabras clave que indican impacto/resultados
+  const impactKeywords = {
+    usuarios: ["usuarios activos", "base de usuarios", "adopción"],
+    rendimiento: ["optimización", "velocidad", "performance"],
+    tecnología: ["migración", "implementación", "desarrollo"],
+    experiencia: ["UX", "interfaz", "usabilidad"],
+  }
+
+  // Agregar contexto profesional basado en el stack tecnológico
+  let enhancedDescription = baseDescription
+
+  if (project.stack) {
+    const techStack = project.stack.join(", ")
+    enhancedDescription += `\n\nTecnologías utilizadas: ${techStack}.`
+  }
+
+  // Agregar información sobre categoría
+  if (project.category === "web") {
+    enhancedDescription += " Proyecto web enfocado en experiencia de usuario y rendimiento optimizado."
+  } else if (project.category === "movil") {
+    enhancedDescription += " Aplicación móvil multiplataforma con enfoque en usabilidad y performance nativa."
+  }
+
+  return enhancedDescription
+}
+
+// Función para mejorar descripciones de proyectos para el CV
+function enhanceProjectDescriptionForCV(project: any): string {
+  let description = project.text || ""
+
+  // Limpiar saltos de línea excesivos para el PDF
+  description = description.replace(/\n\n+/g, " ")
+
+  // Agregar información del stack tecnológico si existe
+  if (project.stack && project.stack.length > 0) {
+    description += ` Tecnologías utilizadas: ${project.stack.join(", ")}.`
+  }
+
+  // Agregar contexto según la categoría
+  if (project.category === "web") {
+    description += " Proyecto web enfocado en experiencia de usuario y rendimiento optimizado."
+  } else if (project.category === "movil") {
+    description += " Aplicación móvil multiplataforma con enfoque en usabilidad y performance nativa."
+  }
+
+  return description
+}
+
+// Función para organizar habilidades por categorías
+function organizeSkills() {
+  const allSkills = {
+    languages: [] as string[],
+    frameworks: [] as string[],
+    backend: [] as string[],
+    tools: [] as string[],
+  }
+
+  // Mapeo de tecnologías a categorías
+  const techMapping = {
+    languages: ["HTML5", "CSS3", "JavaScript", "TypeScript", "Dart"],
+    frameworks: ["React", "Vue", "Flutter", "Astro", "Tailwind CSS", "Bootstrap", "Sass", "ViteJS"],
+    backend: ["NodeJS", "ExpressJS", "MongoDB", "Firebase"],
+    tools: ["Git", "GitHub", "Figma", "Adobe XD", "Jest", "Redux", "React Router"],
+  }
+
+  // Procesar todas las habilidades de skills.js
+  Object.values(skills).forEach((category: any) => {
+    if (category.skills) {
+      category.skills.forEach((skill: any) => {
+        const skillName = skill.title
+
+        // Determinar categoría basada en el mapeo
+        if (techMapping.languages.includes(skillName)) {
+          allSkills.languages.push(skillName)
+        } else if (techMapping.frameworks.includes(skillName)) {
+          allSkills.frameworks.push(skillName)
+        } else if (techMapping.backend.includes(skillName)) {
+          allSkills.backend.push(skillName)
+        } else {
+          allSkills.tools.push(skillName)
+        }
+      })
+    }
+  })
+
+  return allSkills
+}
+
+// Función para organizar habilidades automáticamente desde skills.js
+function organizeSkillsFromExistingData() {
+  const organizedSkills = {
+    languages: [] as string[],
+    frameworks: [] as string[],
+    backend: [] as string[],
+    tools: [] as string[],
+  }
+
+  // Extraer todas las habilidades de skills.js
+  Object.values(skills).forEach((category: any) => {
+    if (category.skills) {
+      category.skills.forEach((skill: any) => {
+        const skillName = skill.title
+
+        // Usar el mapeo de personalData para categorizar
+        if (personalData.cvConfig.skillsMapping.languages.includes(skillName)) {
+          organizedSkills.languages.push(skillName)
+        } else if (personalData.cvConfig.skillsMapping.frameworks.includes(skillName)) {
+          organizedSkills.frameworks.push(skillName)
+        } else if (personalData.cvConfig.skillsMapping.backend.includes(skillName)) {
+          organizedSkills.backend.push(skillName)
+        } else {
+          organizedSkills.tools.push(skillName)
+        }
+      })
+    }
+  })
+
+  return organizedSkills
+}
+
+// Función para seleccionar proyectos destacados
+function selectFeaturedProjects() {
+  // Tomar los primeros 4 proyectos más relevantes
+  const featuredProjects = projectsData.slice(0, 4).map((project) => ({
+    title: project.title,
+    description: enhanceProjectDescription(project),
+  }))
+
+  return featuredProjects
+}
+
+// Función para seleccionar proyectos destacados desde projectsData.js
+function selectFeaturedProjectsFromExistingData() {
+  // Filtrar por categorías incluidas
+  const filteredProjects = projectsData.filter((project) =>
+    personalData.cvConfig.includedProjectCategories.includes(project.category),
+  )
+
+  // Tomar la cantidad configurada de proyectos destacados
+  const featuredProjects = filteredProjects.slice(0, personalData.cvConfig.featuredProjectsCount).map((project) => ({
+    title: project.title,
+    description: enhanceProjectDescriptionForCV(project),
+  }))
+
+  return featuredProjects
+}
+
+// Función principal que prepara todos los datos del CV
 export function prepareCVData() {
-  // Enhanced project descriptions for recruiters
-  const enhancedProjects = [
-    {
-      title: "Workout Creator",
-      description:
-        "Aplicación web completa que revolucionó la creación de entrenamientos personalizados para entrenadores. Desarrollada con React y Redux, permite gestionar una base de datos de 1342 ejercicios categorizados, generar PDFs automáticos y optimizar el flujo de trabajo de profesionales del fitness. Implementé funcionalidades avanzadas de filtrado, interfaz intuitiva y sistema de exportación que mejoró la productividad de los usuarios en un 300%.",
-    },
-    {
-      title: "tubuenacompra.net",
-      description:
-        "Plataforma e-commerce especializada en guías de productos que migré exitosamente de tecnologías legacy a Vue.js moderno. Integré un CMS headless con Strapi y PostgreSQL, optimizando la gestión de contenido y mejorando el rendimiento en un 250%. La plataforma alcanzó más de 200 usuarios diarios y se posicionó como referente en guías de compra especializadas.",
-    },
-    {
-      title: "Disney+ AutoSkip",
-      description:
-        "Extensión de Chrome innovadora con más de 1000+ usuarios activos que automatiza la experiencia de visualización en Disney+. Desarrollada con React y TypeScript, implementa algoritmos inteligentes para detectar y omitir intros/resúmenes automáticamente. Demostré capacidad de identificar necesidades del mercado y crear soluciones técnicas que mejoran significativamente la UX.",
-    },
-    {
-      title: "Random X App",
-      description:
-        "Aplicación móvil multiplataforma desarrollada con Flutter que alcanzó miles de descargas en Google Play Store. Implementé arquitectura BLoC para gestión de estado, diseño Material Design y funcionalidades sociales interactivas. La app destaca por su rendimiento optimizado, interfaz intuitiva y capacidad de engagement en dinámicas grupales.",
-    },
-  ]
+  const organizedSkills = organizeSkillsFromExistingData()
+  const featuredProjects = selectFeaturedProjectsFromExistingData()
 
   return {
     personalInfo: {
-      name: "Cristian Arias Mejuto",
-      title: "Desarrollador FullStack",
-      email: "cariasmejuto@gmail.com",
-      portfolio: "titoworld.dev",
-      github: "titoworlddev",
-      linkedin: "cristian-arias-mejuto",
+      name: personalData.name,
+      title: personalData.title,
+      email: personalData.email,
+      portfolio: personalData.portfolio,
+      github: personalData.github,
+      linkedin: personalData.linkedin,
     },
-    summary:
-      "Desarrollador FullStack con más de 3 años de experiencia creando soluciones web y móviles robustas. Especializado en React, Vue.js y Flutter, con un enfoque sólido en la experiencia de usuario y arquitecturas escalables. Proactivo en aprender nuevas tecnologías, optimizar rendimiento y liderar proyectos que generen impacto real en usuarios finales.",
-    skills: {
-      languages: ["HTML5", "CSS3", "JavaScript", "TypeScript", "Dart"],
-      frameworks: ["React", "Vue.js", "Flutter", "Astro", "Tailwind CSS", "Bootstrap", "Sass"],
-      backend: ["Node.js", "Express.js", "MongoDB", "Firebase"],
-      tools: ["Git", "GitHub", "Figma", "Adobe XD", "Jest", "Redux", "Vite.js"],
-    },
-    projects: enhancedProjects,
-    education: [
-      {
-        title: "Desarrollo de aplicaciones web y móvil",
-        period: "2020 - Presente",
-        description: [
-          "Aprendizaje autónomo de lenguajes de programación y creación de proyectos personales.",
-          "Especialización en frameworks frontend y herramientas como React, Vue.js, Astro, Bootstrap, Tailwind, Flutter y Git.",
-        ],
-      },
-      {
-        title: "Grado Superior Automoción",
-        period: "2019",
-        description: [
-          "Aprendizaje de diagnóstico y reparación de vehículos, gestión y manejo como jefe de taller.",
-          "Desarrollo de habilidades en resolución de problemas, trabajo en equipo y perfeccionismo.",
-        ],
-      },
-    ],
+    summary: personalData.summary,
+    skills: organizedSkills,
+    projects: featuredProjects,
+    education: personalData.education,
     certifications: coursesAndCertifications.map((cert) => ({
       title: cert.title,
       school: cert.school,
       year: cert.year.toString(),
     })),
+  }
+}
+
+// Función para obtener estadísticas dinámicas (opcional)
+export function getCVStats() {
+  return {
+    totalProjects: projectsData.length,
+    webProjects: projectsData.filter((p) => p.category === "web").length,
+    mobileProjects: projectsData.filter((p) => p.category === "movil").length,
+    totalSkills: Object.values(skills).reduce(
+      (total, category: any) => total + (category.skills ? category.skills.length : 0),
+      0,
+    ),
+    totalCertifications: coursesAndCertifications.length,
+    yearsOfExperience: new Date().getFullYear() - 2020, // Desde 2020
   }
 }
