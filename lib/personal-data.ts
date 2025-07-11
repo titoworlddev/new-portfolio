@@ -3,9 +3,24 @@ export const personalData = {
   title: "Desarrollador FullStack",
   email: "cariasmejuto@gmail.com",
   phone: "+34 722432107",
-  portfolio: "titoworld.dev",
-  github: "titoworlddev",
-  linkedin: "cristian-arias-mejuto",
+
+  socials: [
+    {
+      name: 'Portfolio'
+      profileName: 'titoworld.dev'
+      url: 'https://titoworld.dev'
+    },
+    {
+      name: 'GitHub'
+      profileName: 'titoworlddev'
+      url: 'https://github.com/titoworlddev'
+    },
+    {
+      name: 'LinkedIn'
+      profileName: 'cristian-arias-mejuto'
+      url: 'https://www.linkedin.com/in/cristian-arias-mejuto/'
+    },
+  ],
 
   // Descripción para el hero de la web
   heroDescription:
@@ -28,7 +43,7 @@ export const personalData = {
     },
     {
       title: "Grado Superior Automoción",
-      institution: "Centro de Formación Profesional",
+      institution: "IES José Vilaplana - Vinaroz",
       period: "2019",
       description: [
         "Aprendizaje de diagnóstico y reparación de vehículos, gestión y manejo como jefe de taller.",

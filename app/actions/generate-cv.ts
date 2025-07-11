@@ -8,9 +8,7 @@ interface CVData {
     title: string;
     email: string;
     phone?: string;
-    portfolio: string;
-    github: string;
-    linkedin: string;
+    socials: any[];
   };
   summary: string;
   skills: {
@@ -18,7 +16,7 @@ interface CVData {
     mobile?: string[];
     utilities?: string[];
     design?: string[];
-    languages?: string[];
+    languages?: any[];
   };
   projects: Array<{
     title: string;
@@ -100,14 +98,15 @@ export async function generateCV(cvData: CVData) {
 
     if (cvData.personalInfo.phone) {
       pdf.text(`• Teléfono: ${cvData.personalInfo.phone}`, 20, yPosition);
-      yPosition += 5;
     }
 
-    pdf.text(`• Portfolio: ${cvData.personalInfo.portfolio}`, 20, yPosition);
-    yPosition += 5;
-    pdf.text(`• GitHub: ${cvData.personalInfo.github}`, 20, yPosition);
-    yPosition += 5;
-    pdf.text(`• LinkedIn: ${cvData.personalInfo.linkedin}`, 20, yPosition);
+    if (cvData.personalInfo.socials && cvData.personalInfo.socials.length > 0) {
+      for (let i = 0; i < cvData.personalInfo.socials.length; i++) {
+        const social = cvData.personalInfo.socials[i];
+        yPosition += 5;
+        pdf.text(`• ${social.name}: ${social.profileName}`, 20, yPosition);
+      }
+    }
 
     yPosition += 15;
 
@@ -146,7 +145,7 @@ export async function generateCV(cvData: CVData) {
     if (cvData.skills.mobile && cvData.skills.mobile.length > 0) {
       pdf.text(
         `• Desarrollo Móvil: ${cvData.skills.mobile.join(', ')}`,
-        20,
+        20, 
         yPosition
       );
       yPosition += 5;
@@ -168,8 +167,13 @@ export async function generateCV(cvData: CVData) {
 
     if (cvData.skills.languages && cvData.skills.languages.length > 0) {
       let languages = '';
-      for (language in cvData.skills.languages) {
-        languages += ` ${language.name} (${language.level}),`;
+      for (let i = 0; i < cvData.skills.languages.length; i++) {
+        const language = cvData.skills.languages[i];
+        if (i === 0) {
+          languages += ` ${language.title} (${language.level})`;
+        } else {
+          languages += `, ${language.title} (${language.level})`;
+        }
       }
       pdf.text(`• Idiomas: ${languages}`, 20, yPosition);
     } else {
