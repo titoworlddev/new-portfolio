@@ -8,7 +8,6 @@ interface CVData {
     title: string
     email: string
     phone?: string
-    location?: string
     portfolio: string
     github: string
     linkedin: string
@@ -19,6 +18,7 @@ interface CVData {
     mobile?: string[]
     utilities?: string[]
     design?: string[]
+    languages?: string[]
   }
   projects: Array<{
     title: string
@@ -93,11 +93,6 @@ export async function generateCV(cvData: CVData) {
       yPosition += 5
     }
 
-    if (cvData.personalInfo.location) {
-      pdf.text(`• Ubicación: ${cvData.personalInfo.location}`, 20, yPosition)
-      yPosition += 5
-    }
-
     pdf.text(`• Portfolio: ${cvData.personalInfo.portfolio}`, 20, yPosition)
     yPosition += 5
     pdf.text(`• GitHub: ${cvData.personalInfo.github}`, 20, yPosition)
@@ -149,7 +144,15 @@ export async function generateCV(cvData: CVData) {
       yPosition += 5
     }
 
-    pdf.text("• Idiomas: Español (Nativo), Inglés (Básico), Valenciano (Alto), Catalán (Alto)", 20, yPosition)
+    if (cvData.skills.languages && cvData.skills.languages.length > 0) {
+      let languages = '';
+      for (language in cvData.skills.languages) {
+        languages += ` ${language.name} (${language.level}),`
+      }
+      pdf.text(`• Idiomas: ${}`, 20, yPosition)
+    } else {
+      pdf.text(`• Idiomas: Español (Nativo), Inglés (Básico), Valenciano (Alto), Catalán (Alto)`, 20, yPosition)
+    }
 
     yPosition += 15
 
