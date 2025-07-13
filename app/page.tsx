@@ -425,6 +425,28 @@ export default function Portfolio() {
               </div>
             </div>
 
+            {/* Mobile Skills */}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-200 mb-4 sm:mb-6 underline decoration-teal-400">
+                Bases de datos y servidor
+              </h3>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6">
+                {skills.database.skills.map(({ title, img }, index) => (
+                  <div
+                    key={title}
+                    className="flex flex-col items-center p-3 sm:p-4 bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-teal-400/50 transition-all duration-300 group"
+                  >
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${img}`}
+                      alt={`${title} logo`}
+                      className="size-11 mb-2 group-hover:scale-110 transition-transform"
+                    />
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Utility Skills */}
             <div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-200 mb-4 sm:mb-6 underline decoration-teal-400">

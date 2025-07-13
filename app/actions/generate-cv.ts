@@ -14,6 +14,7 @@ interface CVData {
   skills: {
     web?: string[]
     mobile?: string[]
+    database?: string[]
     utilities?: string[]
     design?: string[]
     languages?: any[]
@@ -137,6 +138,12 @@ export async function generateCV(cvData: CVData) {
     if (cvData.skills.mobile && cvData.skills.mobile.length > 0) {
       const mobileSkillsText = `• Desarrollo Móvil: ${cvData.skills.mobile.join(", ")}`
       yPosition = addWrappedText(mobileSkillsText, 20, yPosition, 170, 10)
+      yPosition += 3
+    }
+
+    if (cvData.skills.database && cvData.skills.database.length > 0) {
+      const dataBaseSkillsText = `• Bases de datos y servidor: ${cvData.skills.database.join(", ")}`
+      yPosition = addWrappedText(dataBaseSkillsText, 20, yPosition, 170, 10)
       yPosition += 3
     }
 

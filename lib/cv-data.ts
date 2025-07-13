@@ -20,6 +20,7 @@ export function prepareCVData() {
   const organizedSkills = {
     web: skills.web?.skills?.map(skill => skill.title) || [],
     mobile: skills.mobile?.skills?.map(skill => skill.title) || [],
+    database: skills.database?.skills?.map(skill => skill.title) || [],
     utilities: skills.utilities?.skills?.map(skill => skill.title) || [],
     design: skills.design?.skills?.map(skill => skill.title) || [],
     languages: skills.languages?.skills || []
