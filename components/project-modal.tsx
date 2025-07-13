@@ -37,7 +37,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogOverlay className="bg-black/5 backdrop-blur-sm" />
       <DialogContent
-        className="w-[92vw] max-w-4xl h-[85vh] max-h-[85vh] p-0 bg-slate-800/95 backdrop-blur-md border-slate-700/50 text-white flex flex-col mx-auto rounded-lg sm:rounded-xl"
+        className="w-[92vw] max-w-2xl h-[85vh] max-h-[85vh] p-0 bg-slate-800/95 backdrop-blur-md border-slate-700/50 text-white flex flex-col mx-auto rounded-lg sm:rounded-xl"
         hideCloseButton={true}
       >
         {/* Fixed Header - Mobile First */}
@@ -65,7 +65,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
         </div>
 
         {/* Fixed Tech Stack - Mobile Optimized */}
-        <div className="p-4 sm:p-6 border-b border-slate-700/50 flex-shrink-0">
+        <div className="px-4 sm:px-6 pb-6 sm:pb-4 border-b border-slate-700/50 flex-shrink-0">
           <h3 className="text-base sm:text-lg font-semibold text-slate-200 mb-3">
             Stack Tecnológico
           </h3>
@@ -76,7 +76,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 className={`${
                   techColors[tech.toLowerCase()] ||
                   'bg-slate-600/20 text-slate-300 border-slate-600/30'
-                } border text-xs sm:text-sm px-2 py-1`}
+                } border text-xs px-2 py-1`}
               >
                 {tech.toUpperCase()}
               </Badge>
@@ -85,10 +85,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
         </div>
 
         {/* Scrollable Description - Mobile Optimized */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-          <h3 className="text-base sm:text-lg font-semibold text-slate-200 mb-3">
-            Descripción
-          </h3>
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6">
           <div className="text-slate-300 leading-relaxed whitespace-pre-line text-sm sm:text-base">
             {project.text}
           </div>
