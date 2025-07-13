@@ -262,11 +262,12 @@ export default function Portfolio() {
           <div className="relative order-first lg:order-last">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 rounded-full blur-2xl animate-pulse" />
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-teal-400/30 backdrop-blur-sm bg-slate-800/30">
+              <div className="relative w-full h-full rounded-full overflow-hidden backdrop-blur-sm">
                 <img
                   src="/img/mis-fotos/mi-foto.webp"
                   alt="Foto de Cristian Arias"
                   className="w-full h-full object-cover"
+                  style={{maskImage: 'linear-gradient(black 55%, transparent 85%)'}}
                 />
               </div>
             </div>
