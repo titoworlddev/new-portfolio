@@ -27,7 +27,8 @@ const techColors: { [key: string]: string } = {
   reactcontext: 'bg-blue-700/20 text-blue-300 border-blue-700/30',
   testinglibrary: 'bg-green-600/20 text-green-300 border-green-600/30',
   jest: 'bg-red-600/20 text-red-300 border-red-600/30',
-  styledcomponents: 'bg-pink-600/20 text-pink-300 border-pink-600/30'
+  styledcomponents: 'bg-pink-600/20 text-pink-300 border-pink-600/30',
+  liquid: 'bg-indigo-600/20 text-indigo-300 border-indigo-600/30'
 };
 
 export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
