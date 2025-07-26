@@ -1,10 +1,10 @@
 export const projectsData = [
   {
-    title: 'tubuenacompra.net',
+    title: 'tubuenacompra.es',
     text: 'Plataforma de e-commerce especializada en guías de compra que facilita la toma de decisiones informadas. Gracias a su contenido de calidad, los usuarios reportan una mayor confianza en sus compras. Su diseño responsive y minimalista garantiza una experiencia de usuario cómoda. El proyecto evoluciona constantemente con nuevas guías.',
     img: '/img/trabajos/programacion/tubuenacompra/tubuenacompra.webp',
     coverImg: '/img/trabajos/programacion/tubuenacompra/tubuenacompra.webp',
-    links: ['https://tubuenacompra.net/'],
+    links: ['https://tubuenacompra.es/'],
     category: 'web',
     stack: ['vue', 'bootstrap', 'html', 'css', 'javascript'],
     selector: 'tubuenacompra'
@@ -43,7 +43,7 @@ export const projectsData = [
     selector: 'disneyautoskip'
   },
   {
-    title: 'titoworlddev - Portfolio',
+    title: 'Portfolio',
     text: 'Mi portfolio profesional, desarrollado para mostrar mis habilidades y proyectos. Originalmente construido con HTML, CSS (SASS) y JavaScript puros, ha sido migrado a React para mejorar su escalabilidad y mantenibilidad. Un proyecto que refleja mi pasión por el desarrollo y el diseño limpio.',
     img: '/img/screenshot.webp',
     coverImg: '/img/screenshot.webp',

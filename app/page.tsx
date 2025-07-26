@@ -1,114 +1,131 @@
-"use client"
+'use client';
 
-import { useEffect, useState, useCallback } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card } from "@/components/ui/card"
-import { ProjectModal } from "@/components/project-modal"
-import { Github, Linkedin, ArrowRight, Download, CheckCircle, Menu, X } from "lucide-react"
-import { skills } from "@/lib/skills"
-import { coursesAndCertifications } from "@/lib/coursesAndCertifications"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { sendContactEmail } from "@/app/actions/contact"
-import { generateCV } from "@/app/actions/generate-cv"
-import { prepareCVData } from "@/lib/cv-data"
-import { useActionState } from "react"
-import { projectsData } from "@/lib/projectsData"
-import { personalData } from "@/lib/personal-data"
+import { useEffect, useState, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card } from '@/components/ui/card';
+import { ProjectModal } from '@/components/project-modal';
+import {
+  Github,
+  Linkedin,
+  ArrowRight,
+  Download,
+  CheckCircle,
+  Menu,
+  X
+} from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
+import { sendContactEmail } from '@/app/actions/contact';
+import { generateCV } from '@/app/actions/generate-cv';
+import { prepareCVData } from '@/lib/cv-data';
+import { useActionState } from 'react';
+import { personalData } from '@/lib/personal-data';
+import { projectsData } from '@/lib/projectsData';
+import { skills } from '@/lib/skills';
+import { coursesAndCertifications } from '@/lib/coursesAndCertifications';
 
 export default function Portfolio() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [selectedProject, setSelectedProject] = useState<any>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isGeneratingCV, setIsGeneratingCV] = useState(false)
-  const [state, formAction, isPending] = useActionState(sendContactEmail, null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isGeneratingCV, setIsGeneratingCV] = useState(false);
+  const [state, formAction, isPending] = useActionState(sendContactEmail, null);
 
   const handleDownloadCV = async () => {
     try {
-      setIsGeneratingCV(true)
+      setIsGeneratingCV(true);
 
-      const cvData = prepareCVData()
-      const result = await generateCV(cvData)
+      const cvData = prepareCVData();
+      const result = await generateCV(cvData);
 
       if (result.success && result.pdf) {
         // Create download link
-        const link = document.createElement("a")
-        link.href = result.pdf
-        link.download = "Curriculum_Cristian_Arias.pdf"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        const link = document.createElement('a');
+        link.href = result.pdf;
+        link.download = 'Curriculum_Cristian_Arias.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       } else {
-        console.error("Error generating CV:", result.error)
+        console.error('Error generating CV:', result.error);
         // Fallback to static PDF
-        const link = document.createElement("a")
-        link.href = "/documents/Curriculum Cristian Arias.pdf"
-        link.download = "Curriculum_Cristian_Arias.pdf"
-        link.setAttribute("type", "application/pdf")
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        const link = document.createElement('a');
+        link.href = '/documents/Curriculum Cristian Arias.pdf';
+        link.download = 'Curriculum_Cristian_Arias.pdf';
+        link.setAttribute('type', 'application/pdf');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
     } catch (error) {
-      console.error("Error al generar el CV:", error)
+      console.error('Error al generar el CV:', error);
       // Fallback to static PDF
-      const link = document.createElement("a")
-      link.href = "/documents/Curriculum Cristian Arias.pdf"
-      link.download = "Curriculum_Cristian_Arias.pdf"
-      link.setAttribute("type", "application/pdf")
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+      const link = document.createElement('a');
+      link.href = '/documents/Curriculum Cristian Arias.pdf';
+      link.download = 'Curriculum_Cristian_Arias.pdf';
+      link.setAttribute('type', 'application/pdf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } finally {
-      setIsGeneratingCV(false)
+      setIsGeneratingCV(false);
     }
-  }
+  };
 
-  const webProjects = projectsData.filter((project: any) => project.category === "web")
-  const mobileProjects = projectsData.filter((project: any) => project.category === "movil")
+  const webProjects = projectsData.filter(
+    (project: any) => project.category === 'web'
+  );
+  const mobileProjects = projectsData.filter(
+    (project: any) => project.category === 'movil'
+  );
 
   const handleProjectClick = (project: any) => {
-    setSelectedProject(project)
-    setIsModalOpen(true)
-  }
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   // Optimizar el efecto del mouse con throttling
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY })
-  }, [])
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  }, []);
 
   useEffect(() => {
-    let animationFrame: number
+    let animationFrame: number;
 
     const throttledMouseMove = (e: MouseEvent) => {
       if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
+        cancelAnimationFrame(animationFrame);
       }
 
       animationFrame = requestAnimationFrame(() => {
-        handleMouseMove(e)
-      })
-    }
+        handleMouseMove(e);
+      });
+    };
 
-    window.addEventListener("mousemove", throttledMouseMove, { passive: true })
+    window.addEventListener('mousemove', throttledMouseMove, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", throttledMouseMove)
+      window.removeEventListener('mousemove', throttledMouseMove);
       if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
+        cancelAnimationFrame(animationFrame);
       }
-    }
-  }, [handleMouseMove])
+    };
+  }, [handleMouseMove]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-800 text-white overflow-hidden">
@@ -118,7 +135,7 @@ export default function Portfolio() {
           className="absolute w-96 h-96 bg-teal-500/10 rounded-full blur-3xl will-change-transform"
           style={{
             transform: `translate3d(${mousePosition.x - 192}px, ${mousePosition.y - 192}px, 0)`,
-            transition: "transform 0.1s ease-out",
+            transition: 'transform 0.1s ease-out'
           }}
         />
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-emerald-500/5 rounded-full blur-2xl animate-pulse" />
@@ -128,18 +145,25 @@ export default function Portfolio() {
       {/* Navigation - Mobile First */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-slate-900/20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <a href="#" className="text-slate-400 hover:text-teal-400 hover:scale-105 transition-all">
-            <img src="/img/logo/logo.webp" alt="Logo de Cristian Arias" className="size-9 sm:size-10 cursor-pointer" />
+          <a
+            href="#"
+            className="text-slate-400 hover:text-teal-400 hover:scale-105 transition-all"
+          >
+            <img
+              src="/img/logo/logo.webp"
+              alt="Logo de Cristian Arias"
+              className="size-9 sm:size-10 cursor-pointer"
+            />
           </a>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
             {[
-              { name: "Proyectos", id: "proyectos" },
-              { name: "Sobre mí", id: "sobre-mi" },
-              { name: "Habilidades", id: "habilidades" },
-              { name: "Contacto", id: "contacto" },
-            ].map((item) => (
+              { name: 'Proyectos', id: 'proyectos' },
+              { name: 'Sobre mí', id: 'sobre-mi' },
+              { name: 'Habilidades', id: 'habilidades' },
+              { name: 'Contacto', id: 'contacto' }
+            ].map(item => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.id)}
@@ -188,11 +212,11 @@ export default function Portfolio() {
           <div className="md:hidden bg-slate-900/95 backdrop-blur-md border-t border-white/10">
             <div className="px-4 py-4 space-y-4">
               {[
-                { name: "Proyectos", id: "proyectos" },
-                { name: "Sobre mí", id: "sobre-mi" },
-                { name: "Habilidades", id: "habilidades" },
-                { name: "Contacto", id: "contacto" },
-              ].map((item) => (
+                { name: 'Proyectos', id: 'proyectos' },
+                { name: 'Sobre mí', id: 'sobre-mi' },
+                { name: 'Habilidades', id: 'habilidades' },
+                { name: 'Contacto', id: 'contacto' }
+              ].map(item => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.id)}
@@ -225,10 +249,15 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section - Mobile First */}
-      <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-20">
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-20"
+      >
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="space-y-6 text-center lg:text-left">
-            <p className="text-teal-400 text-base sm:text-lg mb-4 font-mono">CRISTIAN ARIAS</p>
+            <p className="text-teal-400 text-base sm:text-lg mb-4 font-mono">
+              CRISTIAN ARIAS
+            </p>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-teal-200 to-emerald-400 bg-clip-text text-transparent">
               Desarrollador
               <br />
@@ -240,7 +269,7 @@ export default function Portfolio() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button
                 size="lg"
-                onClick={() => scrollToSection("proyectos")}
+                onClick={() => scrollToSection('proyectos')}
                 className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white border-0 group rounded-lg"
               >
                 Ver Proyectos
@@ -254,7 +283,7 @@ export default function Portfolio() {
                 className="border-teal-400/50 text-teal-400 hover:bg-teal-400/10 backdrop-blur-sm bg-transparent rounded-lg disabled:opacity-50"
               >
                 <Download className="mr-2 h-4 w-4" />
-                {isGeneratingCV ? "Generando CV..." : "Descargar CV"}
+                {isGeneratingCV ? 'Generando CV...' : 'Descargar CV'}
               </Button>
             </div>
           </div>
@@ -267,7 +296,9 @@ export default function Portfolio() {
                   src="/img/mis-fotos/mi-foto.webp"
                   alt="Foto de Cristian Arias"
                   className="w-full h-full object-cover"
-                  style={{maskImage: 'linear-gradient(black 55%, transparent 85%)'}}
+                  style={{
+                    maskImage: 'linear-gradient(black 55%, transparent 85%)'
+                  }}
                 />
               </div>
             </div>
@@ -292,11 +323,15 @@ export default function Portfolio() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {webProjects.map((project: any, index) => (
-                  <div key={index} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
+                  <div
+                    key={index}
+                    className="cursor-pointer"
+                    onClick={() => handleProjectClick(project)}
+                  >
                     <Card className="group bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-500 overflow-hidden h-full rounded-xl">
                       <div className="relative overflow-hidden rounded-t-xl">
                         <img
-                          src={project.img || "/placeholder.svg"}
+                          src={project.img || '/placeholder.svg'}
                           alt={project.title}
                           className="w-full h-48 object-cover object-top group-hover:scale-110 transition-transform duration-500"
                         />
@@ -320,11 +355,15 @@ export default function Portfolio() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {mobileProjects.map((project: any, index) => (
-                  <div key={index} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
+                  <div
+                    key={index}
+                    className="cursor-pointer"
+                    onClick={() => handleProjectClick(project)}
+                  >
                     <Card className="group bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-500 overflow-hidden h-full rounded-xl">
                       <div className="relative overflow-hidden rounded-t-xl">
                         <img
-                          src={project.img || "/placeholder.svg"}
+                          src={project.img || '/placeholder.svg'}
                           alt={project.title}
                           className="w-full h-48 object-cover object-top group-hover:scale-110 transition-transform duration-500"
                         />
@@ -345,7 +384,10 @@ export default function Portfolio() {
       </section>
 
       {/* About Section - Mobile First */}
-      <section id="sobre-mi" className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-900/30">
+      <section
+        id="sobre-mi"
+        className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-900/30"
+      >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
@@ -354,7 +396,8 @@ export default function Portfolio() {
             <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-300 leading-relaxed">
               <p>{personalData.summary}</p>
               <p className="text-lg sm:text-xl font-semibold text-teal-400">
-                Si quieres conocer más detalles sobre mi trayectoria profesional, puedes descargar mi CV.
+                Si quieres conocer más detalles sobre mi trayectoria
+                profesional, puedes descargar mi CV.
               </p>
             </div>
             <div className="mt-6 sm:mt-8">
@@ -365,7 +408,7 @@ export default function Portfolio() {
                 className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 rounded-lg disabled:opacity-50"
               >
                 <Download className="mr-2 h-4 w-4" />
-                {isGeneratingCV ? "Generando CV..." : "Descarga mi CV"}
+                {isGeneratingCV ? 'Generando CV...' : 'Descarga mi CV'}
               </Button>
             </div>
           </div>
@@ -398,7 +441,9 @@ export default function Portfolio() {
                       alt={`${title} logo`}
                       className="size-11 mb-2 group-hover:scale-110 transition-transform"
                     />
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">
+                      {title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -420,7 +465,9 @@ export default function Portfolio() {
                       alt={`${title} logo`}
                       className="size-11 mb-2 group-hover:scale-110 transition-transform"
                     />
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">
+                      {title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -442,7 +489,9 @@ export default function Portfolio() {
                       alt={`${title} logo`}
                       className="size-11 mb-2 group-hover:scale-110 transition-transform"
                     />
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">
+                      {title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -464,7 +513,9 @@ export default function Portfolio() {
                       alt={`${title} logo`}
                       className="size-11 mb-2 group-hover:scale-110 transition-transform"
                     />
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">
+                      {title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -487,7 +538,9 @@ export default function Portfolio() {
                       alt={`${title} logo`}
                       className="size-11 mb-2 group-hover:scale-110 transition-transform"
                     />
-                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">{title}</span>
+                    <span className="text-xs sm:text-xs text-slate-300 text-center font-medium">
+                      {title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -497,7 +550,10 @@ export default function Portfolio() {
       </section>
 
       {/* Courses Section - Mobile First */}
-      <section id="cursos" className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-900/30">
+      <section
+        id="cursos"
+        className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-900/30"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
@@ -505,9 +561,17 @@ export default function Portfolio() {
             </h2>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-4 sm:space-y-6">
+          <Accordion
+            type="single"
+            collapsible
+            className="space-y-4 sm:space-y-6"
+          >
             {coursesAndCertifications.map((course, index) => (
-              <AccordionItem key={index} className="border-0" value={`course-${index}`}>
+              <AccordionItem
+                key={index}
+                className="border-0"
+                value={`course-${index}`}
+              >
                 <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50 hover:border-teal-400/50 transition-all duration-300 overflow-hidden rounded-xl">
                   <AccordionTrigger className="p-4 sm:p-6 hover:no-underline [&[data-state=open]>div>div:first-child]:text-teal-400 [&>svg]:text-slate-400 hover:[&>svg]:text-teal-400">
                     <div className="flex items-start gap-3 sm:gap-4 w-full">
@@ -528,15 +592,23 @@ export default function Portfolio() {
                     <div className="pl-8 sm:pl-10 space-y-4">
                       {course.description && (
                         <div>
-                          <h4 className="text-sm font-semibold text-slate-300 mb-2">Descripción del curso:</h4>
-                          <p className="text-slate-400 text-sm leading-relaxed">{course.description}</p>
+                          <h4 className="text-sm font-semibold text-slate-300 mb-2">
+                            Descripción del curso:
+                          </h4>
+                          <p className="text-slate-400 text-sm leading-relaxed">
+                            {course.description}
+                          </p>
                         </div>
                       )}
 
                       {course.skills && (
                         <div>
-                          <h4 className="text-sm font-semibold text-slate-300 mb-2">Tecnologías y herramientas:</h4>
-                          <p className="text-slate-400 text-sm leading-relaxed">{course.skills}</p>
+                          <h4 className="text-sm font-semibold text-slate-300 mb-2">
+                            Tecnologías y herramientas:
+                          </h4>
+                          <p className="text-slate-400 text-sm leading-relaxed">
+                            {course.skills}
+                          </p>
                         </div>
                       )}
 
@@ -544,7 +616,13 @@ export default function Portfolio() {
                         <div className="pt-2">
                           <Button
                             size="sm"
-                            onClick={() => window.open(course.certificateUrl, "_blank", "noopener,noreferrer")}
+                            onClick={() =>
+                              window.open(
+                                course.certificateUrl,
+                                '_blank',
+                                'noopener,noreferrer'
+                              )
+                            }
                             className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 rounded-lg"
                           >
                             Ver certificado
@@ -567,8 +645,12 @@ export default function Portfolio() {
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-teal-400 bg-clip-text text-transparent">
               CONTÁCTAME
             </h2>
-            <p className="text-lg sm:text-xl text-slate-400 mb-2">Envíame un mensaje si deseas trabajar conmigo.</p>
-            <p className="text-slate-500">- Usa el formulario o cariasmejuto@gmail.com -</p>
+            <p className="text-lg sm:text-xl text-slate-400 mb-2">
+              Envíame un mensaje si deseas trabajar conmigo.
+            </p>
+            <p className="text-slate-500">
+              - Usa el formulario o cariasmejuto@gmail.com -
+            </p>
           </div>
 
           <div>
@@ -620,11 +702,13 @@ export default function Portfolio() {
                   <div
                     className={`p-4 rounded-lg ${
                       state.success
-                        ? "bg-green-500/20 border border-green-500/50"
-                        : "bg-red-500/20 border border-red-500/50"
+                        ? 'bg-green-500/20 border border-green-500/50'
+                        : 'bg-red-500/20 border border-red-500/50'
                     }`}
                   >
-                    <p className={`text-sm ${state.success ? "text-green-400" : "text-red-400"}`}>
+                    <p
+                      className={`text-sm ${state.success ? 'text-green-400' : 'text-red-400'}`}
+                    >
                       {state.success ? state.message : state.error}
                     </p>
                   </div>
@@ -637,7 +721,7 @@ export default function Portfolio() {
                     disabled={isPending}
                     className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 px-8 sm:px-12 w-full sm:w-auto disabled:opacity-50 rounded-lg"
                   >
-                    {isPending ? "Enviando..." : "Enviar"}
+                    {isPending ? 'Enviando...' : 'Enviar'}
                   </Button>
                 </div>
               </form>
@@ -654,8 +738,15 @@ export default function Portfolio() {
             >
               <Github size={28} className="sm:w-8 sm:h-8" />
             </a>
-            <a href="#" className="text-slate-400 hover:text-teal-400 transition-colors">
-              <img src="/img/logo/logo.webp" alt="Logo de Cristian Arias" className="size-9 cursor-pointer" />
+            <a
+              href="#"
+              className="text-slate-400 hover:text-teal-400 transition-colors"
+            >
+              <img
+                src="/img/logo/logo.webp"
+                alt="Logo de Cristian Arias"
+                className="size-9 cursor-pointer"
+              />
             </a>
             <a
               href="https://linkedin.com/in/cristian-arias-mejuto"
@@ -670,7 +761,11 @@ export default function Portfolio() {
       </section>
 
       {/* Project Modal */}
-      <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
-  )
+  );
 }

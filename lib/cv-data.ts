@@ -1,7 +1,7 @@
-import { skills } from './skills';
 import { coursesAndCertifications } from './coursesAndCertifications';
-import { projectsData } from './projectsData';
 import { personalData } from './personal-data';
+import { projectsData } from './projectsData';
+import { skills } from './skills';
 
 // Función principal que prepara todos los datos del CV
 export function prepareCVData() {
