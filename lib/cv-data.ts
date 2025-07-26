@@ -2,6 +2,7 @@ import { coursesAndCertifications } from './coursesAndCertifications';
 import { personalData } from './personal-data';
 import { projectsData } from './projectsData';
 import { skills } from './skills';
+import { workExperience } from './workExperience';
 
 // Función principal que prepara todos los datos del CV
 export function prepareCVData() {
@@ -47,7 +48,8 @@ export function prepareCVData() {
     skills: organizedSkills,
     projects: selectedProjects,
     education: personalData.education || [],
-    certifications: certifications
+    certifications: certifications,
+    workExperience
   };
 }
 

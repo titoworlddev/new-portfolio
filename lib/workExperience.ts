@@ -1,4 +1,4 @@
-export const workExperiencie = [
+export const workExperience = [
   {
     title: 'Desarrollador FullStack',
     company: 'Hayax Electronics',

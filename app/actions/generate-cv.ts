@@ -218,12 +218,11 @@ export async function generateCV(cvData: CVData) {
         }
         yPosition += 2;
 
-        if (work.description && work.description.length > 0) {
-          work.description.forEach(desc => {
-            const descText = `• ${desc}`;
-            yPosition = addWrappedText(descText, 20, yPosition, 170, 10);
-            yPosition += 2;
-          });
+        yPosition = addWrappedText(work.description, 20, yPosition, 170, 10);
+        yPosition += 2;
+
+        if (work.skills && work.skills.length > 0) {
+          yPosition = addWrappedText(`Tecnologías usadas: ${work.skills.join(', ')}`, 20, yPosition, 170, 10);
         }
         yPosition += 5;
       });

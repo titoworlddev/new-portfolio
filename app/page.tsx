@@ -29,6 +29,7 @@ import { personalData } from '@/lib/personal-data';
 import { projectsData } from '@/lib/projectsData';
 import { skills } from '@/lib/skills';
 import { coursesAndCertifications } from '@/lib/coursesAndCertifications';
+import { workExperience } from '@/lib/workExperience';
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
