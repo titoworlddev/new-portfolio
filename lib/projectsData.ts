@@ -49,8 +49,18 @@ export const projectsData = [
     coverImg: '/img/screenshot.webp',
     links: ['https://github.com/titoworlddev/new-portfolio'],
     category: 'web',
-    stack: ['react', 'sass', 'html', 'css', 'javascript'],
+    stack: ['react', 'tailwind', 'sass', 'html', 'css', 'javascript'],
     selector: 'titoworlddev'
+  },
+  {
+    title: 'PixelDiet',
+    text: 'PixelDiet es una aplicación web que permite comprimir y convertir imágenes a varios formatos (AVIF, JPEG, WEBP, PNG, JXL) de manera sencilla y eficiente. La aplicación está diseñada para ser intuitiva y fácil de usar, permitiendo a los usuarios optimizar sus imágenes para uso web o compartir en medios digitales.',
+    img: 'https://raw.githubusercontent.com/titoworlddev/pixeldiet/refs/heads/main/screenshot.webp',
+    coverImg: 'https://raw.githubusercontent.com/titoworlddev/pixeldiet/refs/heads/main/screenshot.webp',
+    links: ['https://github.com/titoworlddev/pixeldiet'],
+    category: 'web',
+    stack: ['vue', 'tailwind', 'html', 'css', 'javascript'],
+    selector: 'pixeldiet'
   },
   {
     title: 'Random X App',

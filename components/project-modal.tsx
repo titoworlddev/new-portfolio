@@ -17,6 +17,7 @@ const techColors: { [key: string]: string } = {
   typescript: 'bg-blue-600/20 text-blue-300 border-blue-600/30',
   html: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
   css: 'bg-blue-400/20 text-blue-300 border-blue-400/30',
+  tailwind: 'bg-blue-400/20 text-blue-300 border-blue-400/30',
   sass: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
   flutter: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
   dart: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
