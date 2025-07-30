@@ -1,5 +1,16 @@
 export const coursesAndCertifications = [
   {
+    title: 'Master en Desarrollo Web FullStack - 230 horas',
+    school: 'ConquerBlocks',
+    year: '2025',
+    description:
+      'Este "Máster en Desarrollo Web Full Stack" de Conquer Blocks es una formación integral con 388 clases, 7 módulos y unas 230 horas, que capacita en las tecnologías web más demandadas. Su metodología 100% online y flexible incluye la creación de un portafolio de proyectos prácticos y prepara para los procesos de selección laboral. Además, el programa se complementa con un "Curso Inglés Profesional" (22 temas, 124 clases) y un "Curso Productividad y Emprendimiento" (2 temas, 10 clases), fortaleciendo un perfil como desarrollador web integral. Al finalizar, se obtiene un título respaldado por la IEAD.',
+    skills:
+      'Node.js, Python, SQL, HTML5, CSS, JavaScript, React.js, Django, Vue.js. Git, GitHub, TypeScript, WordPress, Astro',
+    certificateUrl:
+      'https://www.conquerblocks.com/master-desarrollo-web-full-stack'
+  },
+  {
     title: 'React: De cero a experto ( Hooks y MERN ) - 54 horas',
     school: 'Udemy',
     year: '2024',
