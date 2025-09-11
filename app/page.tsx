@@ -296,9 +296,9 @@ export default function Portfolio() {
                 <img
                   src="/img/mis-fotos/mi-foto.webp"
                   alt="Foto de Cristian Arias"
-                  className="w-full h-full object-cover"
+                  className="w-full"
                   style={{
-                    maskImage: 'linear-gradient(black 55%, transparent 85%)'
+                    maskImage: 'linear-gradient(black 40%, transparent 76%)'
                   }}
                 />
               </div>
