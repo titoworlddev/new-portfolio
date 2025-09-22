@@ -1,4 +1,5 @@
 import type React from 'react';
+import { useEffect } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -76,8 +77,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const meta = document.querySelector('meta[name="generator"]');
-  if (meta) meta.remove();
+
+  useEffect(()=> {
+    const meta = document.querySelector('meta[name="generator"]');
+    if (meta) meta.remove();
+  })
 
   return (
     <html lang="es" suppressHydrationWarning>
