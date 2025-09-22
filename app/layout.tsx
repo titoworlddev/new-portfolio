@@ -76,6 +76,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const meta = document.querySelector('meta[name="generator"]');
+  if (meta) meta.remove();
+
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
