@@ -39,6 +39,11 @@ export default function Portfolio() {
   const [isGeneratingCV, setIsGeneratingCV] = useState(false);
   const [state, formAction, isPending] = useActionState(sendContactEmail, null);
 
+  useEffect(()=> {
+    const meta = document.querySelector('meta[name="generator"]');
+    if (meta) meta.remove();
+  })
+
   const handleDownloadCV = async () => {
     try {
       setIsGeneratingCV(true);
