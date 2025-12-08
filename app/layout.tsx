@@ -71,7 +71,6 @@ export const metadata: Metadata = {
     generator: 'v0.dev'
 };
 
-// metadata.generator = 'Cristian Arias';
 delete metadata.generator;
 
 export default function RootLayout({
