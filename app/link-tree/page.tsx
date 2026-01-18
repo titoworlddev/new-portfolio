@@ -127,7 +127,7 @@ export default function LinkTreePage() {
           {/* Footer */}
           <div className="text-center mt-12">
             <p className="text-slate-400 text-sm">Desarrollador FullStack</p>
-            <p className="text-slate-500 text-xs mt-2">React • Vue • Flutter • Node.js</p>
+            <p className="text-slate-500 text-xs mt-2">React • Vue • Flutter • Node.js • SQL</p>
           </div>
         </div>
       </div>

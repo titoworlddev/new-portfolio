@@ -38,6 +38,7 @@ export default function Portfolio() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGeneratingCV, setIsGeneratingCV] = useState(false);
   const [state, formAction, isPending] = useActionState(sendContactEmail, null);
+  const [formLoadTime] = useState(() => Date.now());
 
   /*useEffect(()=> {
     const meta = document.querySelector('meta[name="generator"]');
@@ -662,6 +663,20 @@ export default function Portfolio() {
           <div>
             <Card className="p-6 sm:p-8 bg-slate-800/30 backdrop-blur-sm border-slate-700/50 rounded-xl">
               <form action={formAction} className="space-y-6">
+                {/* Anti-spam: Honeypot field - hidden from humans, bots fill it */}
+                <div className="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website (leave empty)</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+                {/* Anti-spam: Timestamp to verify minimum time */}
+                <input type="hidden" name="_formLoadTime" value={formLoadTime} />
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-slate-300">

@@ -4,6 +4,44 @@ import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API)
 
+// Lista de palabras spam comunes
+const SPAM_KEYWORDS = [
+  'casino', 'viagra', 'lottery', 'winner', 'prize', 'click here',
+  'free money', 'make money fast', 'earn extra cash', 'work from home',
+  'bitcoin investment', 'crypto opportunity', 'mlm', 'network marketing',
+  'forex', 'trading signals', 'guaranteed income', 'double your money',
+  'act now', 'limited time', 'exclusive deal', 'special promotion',
+  'buy now', 'order now', 'subscribe', 'unsubscribe', 'opt-out',
+  'pet supplies', 'dog food', 'cat food', 'pet products',
+  'seo services', 'web traffic', 'backlinks', 'ranking',
+  'pills', 'weight loss', 'diet', 'supplements',
+  'loan', 'credit', 'debt', 'mortgage', 'refinance',
+  'xxx', 'adult', 'dating', 'singles',
+]
+
+// Detectar si el contenido es spam
+function isSpamContent(text: string): boolean {
+  const lowerText = text.toLowerCase()
+  
+  // Verificar palabras spam
+  const hasSpamKeywords = SPAM_KEYWORDS.some(keyword => lowerText.includes(keyword))
+  if (hasSpamKeywords) return true
+  
+  // Contar enlaces (más de 2 enlaces es sospechoso)
+  const urlPattern = /(https?:\/\/|www\.|\.com|\.net|\.org|\.io|\.co)/gi
+  const linkCount = (text.match(urlPattern) || []).length
+  if (linkCount > 2) return true
+  
+  // Detectar texto con muchas mayúsculas (típico de spam)
+  const upperCaseRatio = (text.match(/[A-Z]/g) || []).length / text.length
+  if (upperCaseRatio > 0.5 && text.length > 20) return true
+  
+  // Detectar caracteres repetitivos excesivos
+  if (/(.)\1{4,}/.test(text)) return true
+  
+  return false
+}
+
 export async function sendContactEmail(prevState: any, formData: FormData) {
   try {
     // Verificar que formData existe
@@ -11,6 +49,34 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
       return {
         success: false,
         error: "Error en el formulario. Por favor, inténtalo de nuevo.",
+      }
+    }
+
+    // 1. HONEYPOT: Si el campo oculto tiene valor, es un bot
+    const honeypot = formData.get("website") as string
+    if (honeypot) {
+      // Simular éxito para no alertar al bot
+      console.log("[Anti-spam] Bot detectado por honeypot")
+      return {
+        success: true,
+        message: "¡Mensaje enviado correctamente! Te responderé pronto.",
+      }
+    }
+
+    // 2. TIEMPO MÍNIMO: Los humanos tardan al menos 3 segundos en rellenar el formulario
+    const formLoadTime = formData.get("_formLoadTime") as string
+    if (formLoadTime) {
+      const loadTime = parseInt(formLoadTime, 10)
+      const currentTime = Date.now()
+      const timeDiff = currentTime - loadTime
+      
+      // Si el formulario se envió en menos de 3 segundos, es sospechoso
+      if (timeDiff < 3000) {
+        console.log("[Anti-spam] Bot detectado por tiempo mínimo:", timeDiff, "ms")
+        return {
+          success: true,
+          message: "¡Mensaje enviado correctamente! Te responderé pronto.",
+        }
       }
     }
 
@@ -23,6 +89,16 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
       return {
         success: false,
         error: "Todos los campos son obligatorios",
+      }
+    }
+
+    // 3. DETECCIÓN DE CONTENIDO SPAM
+    const fullContent = `${name} ${email} ${message}`
+    if (isSpamContent(fullContent)) {
+      console.log("[Anti-spam] Contenido spam detectado")
+      return {
+        success: true,
+        message: "¡Mensaje enviado correctamente! Te responderé pronto.",
       }
     }
 
