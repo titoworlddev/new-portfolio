@@ -1,5 +1,40 @@
 export const projectsData = [
   {
+    title: 'Workout Creator',
+    text: 'Aplicación web para diseñar rutinas de gimnasio personalizadas con una base de datos de más de 1300 ejercicios. La herramienta ha mejorado la productividad de los entrenadores personales, permitiéndoles gestionar a sus clientes de forma más eficiente y agilizar la entrega de rutinas. Su función de exportación a PDF facilita la portabilidad.',
+    img: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
+    coverImg: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
+    links: ['https://workoutcreator.app/'],
+    category: 'web',
+    stack: [
+      'react',
+      'nextjs',
+      'tailwind',
+      'redux',
+      'html',
+      'css',
+      'javascript'
+    ],
+    selector: 'workout-creator'
+  },
+  {
+    title: 'GaraGest',
+    text: 'Aplicación web para la gestión integral de talleres mecánicos. Permite administrar órdenes de trabajo, clientes, vehículos, mecánicos e inventario desde un único panel. Incluye agenda, citas rápidas, control de ITVs y generación de documentos imprimibles. Desarrollada con React, TypeScript y Supabase como backend.',
+    img: '/img/trabajos/programacion/garagest/garagest.webp',
+    coverImg: '/img/trabajos/programacion/garagest/garagest.webp',
+    links: [],
+    category: 'web',
+    stack: [
+      'react',
+      'typescript',
+      'tailwind',
+      'supabase',
+      'vite',
+      'javascript'
+    ],
+    selector: 'garagest'
+  },
+  {
     title: 'tubuenacompra.es',
     text: 'Plataforma de e-commerce especializada en guías de compra que facilita la toma de decisiones informadas. Gracias a su contenido de calidad, los usuarios reportan una mayor confianza en sus compras. Su diseño responsive y minimalista garantiza una experiencia de usuario cómoda. El proyecto evoluciona constantemente con nuevas guías.',
     img: '/img/trabajos/programacion/tubuenacompra/tubuenacompra.webp',
@@ -18,16 +53,6 @@ export const projectsData = [
     category: 'web',
     stack: ['html', 'css', 'javascript', 'liquid'],
     selector: 'lilimoo'
-  },
-  {
-    title: 'Workout Creator',
-    text: 'Aplicación web para diseñar rutinas de gimnasio personalizadas con una base de datos de más de 1300 ejercicios. La herramienta ha mejorado la productividad de los entrenadores personales, permitiéndoles gestionar a sus clientes de forma más eficiente y agilizar la entrega de rutinas. Su función de exportación a PDF facilita la portabilidad.',
-    img: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
-    coverImg: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
-    links: ['https://workoutcreator.app/'],
-    category: 'web',
-    stack: ['react', 'reactrouter', 'redux', 'html', 'css', 'javascript'],
-    selector: 'workout-creator'
   },
   {
     title: 'Disney+ AutoSkip',
@@ -49,18 +74,8 @@ export const projectsData = [
     coverImg: '/img/screenshot.webp',
     links: ['https://github.com/titoworlddev/new-portfolio'],
     category: 'web',
-    stack: ['react', 'tailwind', 'sass', 'html', 'css', 'javascript'],
+    stack: ['react', 'sass', 'html', 'css', 'javascript'],
     selector: 'titoworlddev'
-  },
-  {
-    title: 'PixelDiet',
-    text: 'PixelDiet es una aplicación web que permite comprimir y convertir imágenes a varios formatos (AVIF, JPEG, WEBP, PNG, JXL) de manera sencilla y eficiente. La aplicación está diseñada para ser intuitiva y fácil de usar, permitiendo a los usuarios optimizar sus imágenes para uso web o compartir en medios digitales.',
-    img: 'https://raw.githubusercontent.com/titoworlddev/pixeldiet/refs/heads/main/screenshot.webp',
-    coverImg: 'https://raw.githubusercontent.com/titoworlddev/pixeldiet/refs/heads/main/screenshot.webp',
-    links: ['https://github.com/titoworlddev/pixeldiet'],
-    category: 'web',
-    stack: ['vue', 'tailwind', 'html', 'css', 'javascript'],
-    selector: 'pixeldiet'
   },
   {
     title: 'Random X App',
