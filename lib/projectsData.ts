@@ -4,7 +4,7 @@ export const projectsData = [
     text: 'Aplicación web para diseñar rutinas de gimnasio personalizadas con una base de datos de más de 1300 ejercicios. La herramienta ha mejorado la productividad de los entrenadores personales, permitiéndoles gestionar a sus clientes de forma más eficiente y agilizar la entrega de rutinas. Su función de exportación a PDF facilita la portabilidad.',
     img: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
     coverImg: '/img/trabajos/programacion/workout-creator/screenshot.jpg',
-    links: ['https://workoutcreator.app/'],
+    links: ['https://workoutcreator-beta.netlify.app/'],
     category: 'web',
     stack: [
       'react',
